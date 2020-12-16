@@ -1,0 +1,44 @@
+PODS:
+  - BaiduMapKit (6.0.0):
+    - BaiduMapKit/Base (= 6.0.0)
+    - BaiduMapKit/Cloud (= 6.0.0)
+    - BaiduMapKit/Map (= 6.0.0)
+    - BaiduMapKit/Search (= 6.0.0)
+    - BaiduMapKit/Utils (= 6.0.0)
+  - BaiduMapKit/Base (6.0.0)
+  - BaiduMapKit/Cloud (6.0.0):
+    - BaiduMapKit/Base
+  - BaiduMapKit/Map (6.0.0):
+    - BaiduMapKit/Base
+  - BaiduMapKit/Search (6.0.0):
+    - BaiduMapKit/Base
+  - BaiduMapKit/Utils (6.0.0):
+    - BaiduMapKit/Base
+  - BMKLocationKit (2.0.0)
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - Masonry (1.1.0)
+
+DEPENDENCIES:
+  - BaiduMapKit (= 6.0.0)
+  - BMKLocationKit
+  - FMDB
+  - Masonry
+
+SPEC REPOS:
+  trunk:
+    - BaiduMapKit
+    - BMKLocationKit
+    - FMDB
+    - Masonry
+
+SPEC CHECKSUMS:
+  BaiduMapKit: e21e4c72533f263aa3c73e3b0ea13b37e7038f62
+  BMKLocationKit: 097814ef672b1e57e86e6c1968d7892fb78002bf
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+
+PODFILE CHECKSUM: bc0f3bb40b56b9b9d66b6379b6ff0875e11f5b7f
+
+COCOAPODS: 1.10.0

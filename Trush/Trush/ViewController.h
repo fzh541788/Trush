@@ -14,6 +14,9 @@
 
 @property (nonatomic, strong) UIButton *enterButton;
 @property (nonatomic, strong) UIButton *registerButton;
+@property (nonatomic, strong) UIButton *messageButton;
+@property (nonatomic, strong) UIButton *qqButton;
+@property (nonatomic, strong) UIButton *wechatButton;
 
 @property (nonatomic, strong) NSMutableArray *testName;
 @property (nonatomic, strong) NSMutableArray *passName;

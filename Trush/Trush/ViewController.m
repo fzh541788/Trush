@@ -11,7 +11,7 @@
 #import "GuideViewController.h"
 #import "MyViewController.h"
 #import "RegisterViewController.h"
-
+//把数据库的操作全部转化成 后台的操作
 @interface ViewController ()
 
 @end
@@ -40,18 +40,28 @@
     
     
     _enterButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    _enterButton.frame = CGRectMake(120, 500, 50, 50);
+    _enterButton.frame = CGRectMake(120, 400, 50, 50);
     [_enterButton setTitle:@"登录" forState:UIControlStateNormal];
     _enterButton.titleLabel.font = [UIFont systemFontOfSize:20];
     [_enterButton addTarget:self action:@selector(pressLogin) forControlEvents:UIControlEventTouchUpInside];
     
     _registerButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    _registerButton.frame = CGRectMake(260, 500, 50, 50);
+    _registerButton.frame = CGRectMake(260, 400, 50, 50);
     [_registerButton setTitle:@"注册" forState:UIControlStateNormal];
     _registerButton.titleLabel.font = [UIFont systemFontOfSize:20];
     [_registerButton addTarget:self action:@selector(pressRegister) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_enterButton];
     [self.view addSubview:_registerButton];
+    
+    _messageButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [_messageButton setTitle:@"用短信验证码登录" forState:UIControlStateNormal];
+    _messageButton.frame = CGRectMake(25, 800, 380, 50);
+    _messageButton.titleLabel.font = [UIFont systemFontOfSize:18];
+    [_messageButton addTarget:self action:@selector(pressMessageButton) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_messageButton];
+    
+//qq、微信登录    
+//如果是这两个登录的话，客户端需要将qqId发给后台，后台返回是否需要绑定手机号（不需要就返回个人信息，需要就跳转到绑定手机号页面
     
     // Do any additional setup after loading the view.
 }
@@ -103,9 +113,14 @@
 }
 
 - (void)pressRegister {
+    //客户端将手机号、密码以及短信验证码发给后台，后台进行检验再返回数据给客户端（是否注册成功）
     RegisterViewController *registerViewController = [[RegisterViewController alloc]init];
     registerViewController.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:registerViewController animated:YES completion:nil];
+}
+
+- (void)pressMessageButton {
+    //客户端将手机号发给后台，后台返回是否发送成功
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {

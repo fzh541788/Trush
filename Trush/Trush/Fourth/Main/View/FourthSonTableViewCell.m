@@ -24,11 +24,20 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     _titleLabel = [[UILabel alloc]init];
     [self.contentView addSubview:_titleLabel];
+    
+    _headImage = [[UIImageView alloc]init];
+    [self.contentView addSubview:_headImage];
+    
+    _headTitileLabel = [[UILabel alloc]init];
+    _headTitileLabel.font = [UIFont systemFontOfSize:20];
+    [self.contentView addSubview:_headTitileLabel];
     return self;
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
     _titleLabel.frame = CGRectMake(20, 20, 300, 50);
+    _headImage.frame = CGRectMake(20, 50, 96, 96);
+    _headTitileLabel.frame = CGRectMake(150, 50, 300, 50);
 }
 @end

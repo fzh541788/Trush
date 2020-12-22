@@ -11,6 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MapViewController : UIViewController
 
+@property (nonatomic, strong) UIButton *buttomButton;
+@property (nonatomic, strong) UIScrollView *viewTest;
+
 @end
 
 NS_ASSUME_NONNULL_END

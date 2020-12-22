@@ -36,6 +36,8 @@
 		60979328258A2BB60088EFF8 /* laokang.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 60979327258A2BB60088EFF8 /* laokang.jpeg */; };
 		6097933A258A363D0088EFF8 /* AnalyseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60979339258A363D0088EFF8 /* AnalyseViewController.m */; };
 		60979340258A36570088EFF8 /* AnalyseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6097933F258A36570088EFF8 /* AnalyseView.m */; };
+		60AC0E6D2590CF8100354F49 /* Guide1.png in Resources */ = {isa = PBXBuildFile; fileRef = 60AC0E6B2590CF8100354F49 /* Guide1.png */; };
+		60AC0E6E2590CF8100354F49 /* Guide2.png in Resources */ = {isa = PBXBuildFile; fileRef = 60AC0E6C2590CF8100354F49 /* Guide2.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +111,8 @@
 		60979339258A363D0088EFF8 /* AnalyseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnalyseViewController.m; sourceTree = "<group>"; };
 		6097933E258A36570088EFF8 /* AnalyseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalyseView.h; sourceTree = "<group>"; };
 		6097933F258A36570088EFF8 /* AnalyseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnalyseView.m; sourceTree = "<group>"; };
+		60AC0E6B2590CF8100354F49 /* Guide1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Guide1.png; sourceTree = "<group>"; };
+		60AC0E6C2590CF8100354F49 /* Guide2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Guide2.png; sourceTree = "<group>"; };
 		C518A173E0FE0E629E84BD46 /* libPods-Trush.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Trush.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECB90B9D90AD4ED02424096C /* Pods-Trush.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trush.release.xcconfig"; path = "Target Support Files/Pods-Trush/Pods-Trush.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -376,6 +380,8 @@
 			isa = PBXGroup;
 			children = (
 				60334C762575359A006CD8DD /* shumajiadian.png */,
+				60AC0E6B2590CF8100354F49 /* Guide1.png */,
+				60AC0E6C2590CF8100354F49 /* Guide2.png */,
 				60334C7D257657B9006CD8DD /* yuyin-2.png */,
 				60334C772575359A006CD8DD /* yuyin.png */,
 				60979327258A2BB60088EFF8 /* laokang.jpeg */,
@@ -588,9 +594,11 @@
 				60979328258A2BB60088EFF8 /* laokang.jpeg in Resources */,
 				60334BE1256E80ED006CD8DD /* LaunchScreen.storyboard in Resources */,
 				60334C7E257657B9006CD8DD /* yuyin-2.png in Resources */,
+				60AC0E6D2590CF8100354F49 /* Guide1.png in Resources */,
 				60334BDE256E80ED006CD8DD /* Assets.xcassets in Resources */,
 				60334BDC256E80EB006CD8DD /* Main.storyboard in Resources */,
 				60334C782575359A006CD8DD /* shumajiadian.png in Resources */,
+				60AC0E6E2590CF8100354F49 /* Guide2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -848,7 +856,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 47HLV9DY2Z;
 				INFOPLIST_FILE = Trush/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -856,6 +866,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = fzh541788.Trush;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -866,7 +877,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 47HLV9DY2Z;
 				INFOPLIST_FILE = Trush/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -874,6 +887,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = fzh541788.Trush;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -883,6 +897,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 47HLV9DY2Z;
 				INFOPLIST_FILE = TrushTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -902,6 +917,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 47HLV9DY2Z;
 				INFOPLIST_FILE = TrushTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -920,6 +936,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 47HLV9DY2Z;
 				INFOPLIST_FILE = TrushUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -937,6 +954,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 47HLV9DY2Z;
 				INFOPLIST_FILE = TrushUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

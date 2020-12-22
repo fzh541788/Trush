@@ -10,17 +10,17 @@
 #import <BaiduMapAPI_Map/BMKMapComponent.h>//引入地图功能所有的头文件
 #import <BMKLocationkit/BMKLocationComponent.h>
 
-@interface MapViewController ()<BMKMapViewDelegate,BMKLocationManagerDelegate>
+@interface MapViewController ()<BMKMapViewDelegate,BMKLocationManagerDelegate,UIScrollViewDelegate>
 @property (nonatomic, strong) BMKUserLocation *userLocation;
 @property (nonatomic, strong) BMKLocationManager *locationManager; //定位对象
 @property (nonatomic, strong) BMKMapView *mapView;
+@property (nonatomic, assign) NSInteger flag;
 @end
 
 @implementation MapViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
- 
     _mapView = [[BMKMapView alloc]initWithFrame:self.view.bounds];
     _mapView.delegate = self;
     // 显示定位信息
@@ -32,19 +32,60 @@
 //    [self.locationManager startUpdatingLocation];
     [self locationManage];
 //    [self.locationManager startUpdatingHeading];
-//
+    _buttomButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_buttomButton setTitle:@"      -      " forState:UIControlStateNormal];
+    _buttomButton.frame = CGRectMake(0, self.view.frame.size.height - 104, self.view.frame.size.width, 20);
+    _buttomButton.backgroundColor = [UIColor grayColor];
+    [_buttomButton addTarget:self action:@selector(pressMore:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_buttomButton];
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
+-(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [_mapView viewWillAppear];
 }
 
--(void)viewWillDisappear:(BOOL)animated
-{
+-(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [_mapView viewWillDisappear];
+}
+
+- (void)pressMore:(UIButton *)button {
+    [button setTitle:@"      v      " forState:UIControlStateNormal];
+    button.frame = CGRectMake(0, self.view.frame.size.height - 300, self.view.frame.size.width, 20);
+    [button addTarget:self action:@selector(unPressMore:) forControlEvents:UIControlEventTouchUpInside];
+    _viewTest = [[UIScrollView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 280, self.view.frame.size.width, 200)];
+    _viewTest.backgroundColor = [UIColor whiteColor];
+    _viewTest.tag = 22;
+    [self.view addSubview:_viewTest];
+    _viewTest.pagingEnabled = NO;
+    _viewTest.delegate = self;
+    _viewTest.contentSize = CGSizeMake(self.view.frame.size.width, 300);
+    _viewTest.showsVerticalScrollIndicator = FALSE;
+    _viewTest.showsHorizontalScrollIndicator = FALSE;
+}
+
+- (void)unPressMore:(UIButton *)button {
+    [button setTitle:@"      -      " forState:UIControlStateNormal];
+    _buttomButton.frame = CGRectMake(0, self.view.frame.size.height - 104, self.view.frame.size.width, 20);
+    [button addTarget:self action:@selector(pressMore:) forControlEvents:UIControlEventTouchUpInside];
+    
+    for (UIView *subviews in [self.view subviews]) {
+            if (subviews.tag == 22) {
+                [subviews removeFromSuperview];
+            }
+        }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    CGFloat currentOffsetY = scrollView.contentOffset.y;
+    for (UIView *subviews in [self.view subviews]) {
+            if (subviews.tag == 22) {
+                if (currentOffsetY == 0) {
+                    [self unPressMore:_buttomButton];
+                }
+            }
+        }
 }
 
 

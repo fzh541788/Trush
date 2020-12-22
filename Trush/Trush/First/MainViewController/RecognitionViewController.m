@@ -74,31 +74,42 @@
         [alertViewController addAction:cancle];
         [alertViewController addAction:photo];
         [alertViewController addAction:picture];
-        
+    // support iPad
+    alertViewController.popoverPresentationController.sourceView = self.view;
+    alertViewController.popoverPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width*0.5, self.view.bounds.size.height, 1.0, 1.0);
         [self presentViewController:alertViewController animated:YES completion:nil];
 
 }
 
 #pragma mark 从摄像头获取图片或视频
 - (void)selectImageFromCamera {
-    _imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-        //录制视频时长，默认10s
-        _imagePickerController.videoMaximumDuration = 15;
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+            //设置UIImagePickerController的代理，同时要遵循
+            //UIImagePickerControllerDelegate，
+            //UINavigationControllerDelegate协议
+            picker.delegate = self;
+            
+            //设置拍照之后图片是否可编辑，如果设置成可编辑的话会
+            //在代理方法返回的字典里面多一些键值。PS：
+            //如果在调用相机的时候允许照片可编辑，
+            //那么用户能编辑的照片的位置并不包括边角。
+            picker.allowsEditing = YES;
      
-        //相机类型（拍照、录像...）字符串需要做相应的类型转换
-        _imagePickerController.mediaTypes = @[(NSString *)kUTTypeMovie,(NSString *)kUTTypeImage];
+            //UIImagePicker选择器的类型，UIImagePickerControllerSourceTypeCamera调用系统相机
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
      
-        //视频上传质量
-        //UIImagePickerControllerQualityTypeHigh高清
-        //UIImagePickerControllerQualityTypeMedium中等质量
-        //UIImagePickerControllerQualityTypeLow低质量
-        //UIImagePickerControllerQualityType640x480
-        _imagePickerController.videoQuality = UIImagePickerControllerQualityTypeHigh;
-     
-        //设置摄像头模式（拍照，录制视频）为录像模式
-        _imagePickerController.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+            [self presentViewController:picker animated:YES completion:nil];
+            NSLog(@"拍照中");
+        }
+        else{
+            //如果当前设备没有摄像头
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"没有摄像头" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+            [alert addAction:sureAction];
+            [self presentViewController:alert animated:NO completion:nil];
+        }
 
-    [self presentViewController:_imagePickerController animated:YES completion:nil];
 }
 
 #pragma mark 从相册获取图片或视频
@@ -124,38 +135,48 @@
     [picker dismissViewControllerAnimated:YES completion:^{}];
 }
 
-
 - (void)pressVoice:(UIButton *)sender {
+    //本身对按钮的点击是不会改变selected状态的,需要我们在按钮的监听方法里去对这个值设置 这里就是简单
     sender.selected = !sender.selected;
        if (sender.selected != YES) {
          [_audioRecorder stop];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"录音结束！" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:sureAction];
+        [self presentViewController:alert animated:NO completion:nil];
          return ;
        }
-       //  URL是本地的URL AVAudioRecorder需要一个存储的路径
-       NSString *name = [NSString stringWithFormat:@"%d.aiff" ,( int )[NSDate date].timeIntervalSince1970];
-       
-       NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:name];
-       NSError *error;
-       //  录音机 初始化
-       _audioRecorder = [[AVAudioRecorder alloc]initWithURL:[NSURL fileURLWithPath:path] settings:@{AVNumberOfChannelsKey:@2,AVSampleRateKey:@44100,AVLinearPCMBitDepthKey:@32,AVEncoderAudioQualityKey:@(AVAudioQualityMax),AVEncoderBitRateKey:@128000} error:&error];
-       [_audioRecorder prepareToRecord];
-       [_audioRecorder record];
-       _audioRecorder.delegate = self;
-       /*
-        1.AVNumberOfChannelsKey 通道数 通常为双声道 值2
-        2.AVSampleRateKey 采样率 单位HZ 通常设置成44100 也就是44.1k
-        3.AVLinearPCMBitDepthKey 比特率 8 16 24 32
-        4.AVEncoderAudioQualityKey 声音质量
-            ① AVAudioQualityMin  = 0, 最小的质量
-            ② AVAudioQualityLow  = 0x20, 比较低的质量
-            ③ AVAudioQualityMedium = 0x40, 中间的质量
-            ④ AVAudioQualityHigh  = 0x60,高的质量
-            ⑤ AVAudioQualityMax  = 0x7F 最好的质量
-        5.AVEncoderBitRateKey 音频编码的比特率 单位Kbps 传输的速率 一般设置128000 也就是128kbps
-        */
-       NSLog(@ "%@" ,path);
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"开始录音，再次点击按钮结束录音" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        //  URL是本地的URL AVAudioRecorder需要一个存储的路径
+        NSString *name = [NSString stringWithFormat:@"%d.aiff" ,( int )[NSDate date].timeIntervalSince1970];
+        
+        NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:name];
+        NSError *error;
+        //  录音机 初始化
+        self->_audioRecorder = [[AVAudioRecorder alloc]initWithURL:[NSURL fileURLWithPath:path] settings:@{AVNumberOfChannelsKey:@2,AVSampleRateKey:@44100,AVLinearPCMBitDepthKey:@32,AVEncoderAudioQualityKey:@(AVAudioQualityMax),AVEncoderBitRateKey:@128000} error:&error];
+        [self->_audioRecorder prepareToRecord];
+        [self->_audioRecorder record];
+        self->_audioRecorder.delegate = self;
+        /*
+         1.AVNumberOfChannelsKey 通道数 通常为双声道 值2
+         2.AVSampleRateKey 采样率 单位HZ 通常设置成44100 也就是44.1k
+         3.AVLinearPCMBitDepthKey 比特率 8 16 24 32
+         4.AVEncoderAudioQualityKey 声音质量
+             ① AVAudioQualityMin  = 0, 最小的质量
+             ② AVAudioQualityLow  = 0x20, 比较低的质量
+             ③ AVAudioQualityMedium = 0x40, 中间的质量
+             ④ AVAudioQualityHigh  = 0x60,高的质量
+             ⑤ AVAudioQualityMax  = 0x7F 最好的质量
+         5.AVEncoderBitRateKey 音频编码的比特率 单位Kbps 传输的速率 一般设置128000 也就是128kbps
+         */
+        NSLog(@ "%@" ,path);
+    }];
+                    [alert addAction:sureAction];
+                    [self presentViewController:alert animated:NO completion:nil];
+
 }
-- ( void )audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:( BOOL )flag{
+- (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:( BOOL )flag{
    NSLog(@ "录音结束" );
 ////  文件操作的类
 //   NSFileManager *manger = [NSFileManager defaultManager];

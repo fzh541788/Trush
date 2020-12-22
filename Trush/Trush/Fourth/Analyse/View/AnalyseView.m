@@ -15,7 +15,6 @@
 
     UIView *pieView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height - 20)];
     pieView.center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
-    pieView.tag = 101;
     pieView.backgroundColor = self.backgroundColor;//[UIColor whiteColor];
     [self addSubview:pieView];
     
@@ -70,6 +69,8 @@
     strokeAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     strokeAnimation.removedOnCompletion = YES;
     [bgLayer addAnimation:strokeAnimation forKey:@"pieAnimation"];
+    
+    
     return self;
 }
 

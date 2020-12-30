@@ -11,12 +11,14 @@
 #import <BMKLocationkit/BMKLocationComponent.h>
 #import <BaiduMapAPI_Base/BMKBaseComponent.h>
 #import <BaiduMapAPI_Search/BMKSearchComponent.h>
+#import "Masonry.h"
 
 @interface MapViewController ()<BMKMapViewDelegate,BMKLocationManagerDelegate,UIScrollViewDelegate,BMKRouteSearchDelegate>
 @property (nonatomic, strong) BMKUserLocation *userLocation;
 @property (nonatomic, strong) BMKLocationManager *locationManager; //定位对象
 @property (nonatomic, strong) BMKMapView *mapView;
 @property (nonatomic, assign) NSInteger flag;
+@property (nonatomic, strong) BMKPlanNode *temporaryEnd;
 //@property (nonatomic, copy) NSMutableArray *location;
 @end
 
@@ -36,9 +38,9 @@
     [self locationManage];
 //    [self.locationManager startUpdatingHeading];
     _buttomButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_buttomButton setTitle:@"      -      " forState:UIControlStateNormal];
-    _buttomButton.frame = CGRectMake(0, self.view.frame.size.height - 104, self.view.frame.size.width, 20);
-    _buttomButton.backgroundColor = [UIColor grayColor];
+    [_buttomButton setImage:[UIImage imageNamed:@"tongyong_shangla.png"] forState:UIControlStateNormal];
+    _buttomButton.frame = CGRectMake(0, self.view.frame.size.height - 130, self.view.frame.size.width, 48);
+    _buttomButton.backgroundColor = [UIColor whiteColor];
     [_buttomButton addTarget:self action:@selector(pressMore:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_buttomButton];
     
@@ -65,15 +67,17 @@
 - (void)btnAction:(UIButton *)button{
     BMKRouteSearch *routeSearch = [[BMKRouteSearch alloc] init];
     routeSearch.delegate = self;
-    BMKPlanNode* start = [[BMKPlanNode alloc] init];
+    BMKPlanNode *start = [[BMKPlanNode alloc] init];
     start.pt = CLLocationCoordinate2DMake(_locationOne, _locationTwo);
     BMKPlanNode *end = [[BMKPlanNode alloc] init];
-    
+    _temporaryEnd = [[BMKPlanNode alloc]init];
     if (button.tag == 1) {
         end.pt = CLLocationCoordinate2DMake(34.167098, 108.9012);
+        _temporaryEnd.pt = CLLocationCoordinate2DMake(34.167098, 108.9012);
     }
     if (button.tag == 2) {
         end.pt = CLLocationCoordinate2DMake(34.147098, 108.9012);
+        _temporaryEnd.pt = CLLocationCoordinate2DMake(34.167098, 108.9012);
     }
    
     
@@ -214,8 +218,7 @@
 }
 
 - (void)pressMore:(UIButton *)button {
-    [button setTitle:@"      v      " forState:UIControlStateNormal];
-    button.frame = CGRectMake(0, self.view.frame.size.height - 300, self.view.frame.size.width, 20);
+    button.frame = CGRectMake(0, self.view.frame.size.height - 328, self.view.frame.size.width, 48);
     [button addTarget:self action:@selector(unPressMore:) forControlEvents:UIControlEventTouchUpInside];
     _viewTest = [[UIScrollView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 280, self.view.frame.size.width, 200)];
     _viewTest.backgroundColor = [UIColor whiteColor];
@@ -223,33 +226,81 @@
     [self.view addSubview:_viewTest];
     _viewTest.pagingEnabled = NO;
     _viewTest.delegate = self;
-    _viewTest.contentSize = CGSizeMake(self.view.frame.size.width, 200);
+    _viewTest.contentSize = CGSizeMake(self.view.frame.size.width, 201);
     _viewTest.showsVerticalScrollIndicator = FALSE;
     _viewTest.showsHorizontalScrollIndicator = FALSE;
     
-    _upButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [_upButton setFrame:CGRectMake(10, 20, 80, 30)];
-    [_upButton setTitle:@"增加回收点" forState:UIControlStateNormal];
+    _upButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_upButton setFrame:CGRectMake(self.view.frame.size.width * 0.0701, 25, 65, 65)];
+    [_upButton setImage:[UIImage imageNamed:@"zengjia-3.png"] forState:UIControlStateNormal];
     [_upButton addTarget:self action:@selector(pressUpButton) forControlEvents:UIControlEventTouchUpInside];
     [_viewTest addSubview:_upButton];
+    UILabel *upLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 60, 80, 30)];
+    upLabel.text = @"增加回收点";
+    upLabel.textColor = [UIColor blackColor];
+    upLabel.font = [UIFont systemFontOfSize:13];
+    [_upButton addSubview:upLabel];
     
-    _nearlyButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [_nearlyButton setFrame:CGRectMake(230, 20, 80, 30)];
-    [_nearlyButton setTitle:@"附近回收点" forState:UIControlStateNormal];
+    _nearlyButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_nearlyButton setFrame:CGRectMake(self.view.frame.size.width * 0.56075, 30, 55, 55)];
+    [_nearlyButton setImage:[UIImage imageNamed:@"08.png"] forState:UIControlStateNormal];
     [_nearlyButton addTarget:self action:@selector(pressNearlyButton) forControlEvents:UIControlEventTouchUpInside];
     [_viewTest addSubview:_nearlyButton];
+    UILabel *nearlyLabel = [[UILabel alloc]initWithFrame:CGRectMake(-5, 55, 80, 30)];
+    nearlyLabel.text = @"附近回收点";
+    nearlyLabel.textColor = [UIColor blackColor];
+    nearlyLabel.font = [UIFont systemFontOfSize:13];
+    [_nearlyButton addSubview:nearlyLabel];
     
-    _delegtWayButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [_delegtWayButton setFrame:CGRectMake(110, 20, 80, 30)];
-    [_delegtWayButton setTitle:@"取消规划" forState:UIControlStateNormal];
+    _delegtWayButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_delegtWayButton setFrame:CGRectMake(self.view.frame.size.width * 0.327, 20, 64, 64)];
+    [_delegtWayButton setImage:[UIImage imageNamed:@"luxian.png"] forState:UIControlStateNormal];
     [_delegtWayButton addTarget:self action:@selector(pressDelegtWayButton) forControlEvents:UIControlEventTouchUpInside];
     [_viewTest addSubview:_delegtWayButton];
+    UILabel *delegtLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 65, 80, 30)];
+    delegtLabel.text = @"取消规划";
+    delegtLabel.textColor = [UIColor blackColor];
+    delegtLabel.font = [UIFont systemFontOfSize:13];
+    [_delegtWayButton addSubview:delegtLabel];
     
-    _refreshButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [_refreshButton setFrame:CGRectMake(350, 20, 80, 30)];
-    [_refreshButton setTitle:@"刷新规划" forState:UIControlStateNormal];
+    
+    _refreshButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_refreshButton setFrame:CGRectMake(self.view.frame.size.width * 0.7944, 30, 55, 55)];
+    [_refreshButton setImage:[UIImage imageNamed:@"shuaxin.png"] forState:UIControlStateNormal];
     [_refreshButton addTarget:self action:@selector(pressRefreshButton) forControlEvents:UIControlEventTouchUpInside];
     [_viewTest addSubview:_refreshButton];
+    UILabel *refreshLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 55, 80, 30)];
+    refreshLabel.text = @"刷新规划";
+    refreshLabel.textColor = [UIColor blackColor];
+    refreshLabel.font = [UIFont systemFontOfSize:13];
+    [_refreshButton addSubview:refreshLabel];
+    
+    _pictureButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [_pictureButton setTitle:@"图片" forState:UIControlStateNormal];
+    _pictureButton.frame = CGRectMake(170, 150, 80, 20);
+    [_viewTest addSubview:_pictureButton];
+    _pictureButton.hidden = YES;
+    [_pictureButton addTarget:self action:@selector(pressPicture) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)pressPicture {
+
+        if (_didSecondChange) {
+            [_pictureButton setTitle:@"图片" forState:UIControlStateNormal];
+        } else {
+            [_pictureButton setTitle:@"收起" forState:UIControlStateNormal];
+//                _viewTest.frame = CGRectMake(0, self.view.frame.size.height - 480, self.view.frame.size.width, 200);
+//                _secondView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 280, self.view.frame.size.width, 200)];
+//                _secondView.backgroundColor = [UIColor whiteColor];
+//                _secondView.tag = 23;
+//                [self.view addSubview:_secondView];
+//                _secondView.pagingEnabled = NO;
+//                _secondView.delegate = self;
+//                _secondView.contentSize = CGSizeMake(self.view.frame.size.width, 200);
+//                _secondView.showsVerticalScrollIndicator = FALSE;
+//                _secondView.showsHorizontalScrollIndicator = FALSE;
+        }
+        _didSecondChange = !_didSecondChange;
 }
 
 
@@ -273,20 +324,39 @@
     //副标题
     annotation1.subtitle = @"2";
     [_mapView addAnnotation:annotation1];
+    _flag = 1;
+    _pictureButton.hidden = NO;
 }
 
 - (void)pressDelegtWayButton {
     [self.mapView removeOverlays:self.mapView.overlays];
     [self.mapView removeAnnotations:self.mapView.annotations];
+    _flag = 0;
+    _pictureButton.hidden = YES;
 }
 
 - (void)pressRefreshButton {
-    [self.mapView mapForceRefresh];
+    [self requestLocation];
+    BMKRouteSearch *routeSearch = [[BMKRouteSearch alloc] init];
+    routeSearch.delegate = self;
+    BMKPlanNode *start = [[BMKPlanNode alloc] init];
+    start.pt = CLLocationCoordinate2DMake(_locationOne, _locationTwo);
+    
+    BMKWalkingRoutePlanOption *walkingRouteSearchOption = [[BMKWalkingRoutePlanOption alloc] init];
+    walkingRouteSearchOption.from = start;
+    walkingRouteSearchOption.to = _temporaryEnd;
+    
+    BOOL flag = [routeSearch walkingSearch:walkingRouteSearchOption];
+    if (flag) {
+        NSLog(@"步行路线规划检索发送成功");
+    } else{
+        NSLog(@"步行路线规划检索发送失败");
+    }
 }
 
 - (void)unPressMore:(UIButton *)button {
-    [button setTitle:@"      -      " forState:UIControlStateNormal];
-    _buttomButton.frame = CGRectMake(0, self.view.frame.size.height - 104, self.view.frame.size.width, 20);
+//    [button setTitle:@"      -      " forState:UIControlStateNormal];
+    _buttomButton.frame = CGRectMake(0, self.view.frame.size.height - 130, self.view.frame.size.width, 48);
     [button addTarget:self action:@selector(pressMore:) forControlEvents:UIControlEventTouchUpInside];
     
     for (UIView *subviews in [self.view subviews]) {

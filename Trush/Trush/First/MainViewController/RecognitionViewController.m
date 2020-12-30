@@ -11,14 +11,17 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
+#import "PictureModel.h"
 
 @interface RecognitionViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate,UITextFieldDelegate,AVAudioRecorderDelegate>
 @property (nonatomic, strong)FirstView *firstView;
+@property (nonatomic, strong)PictureModel *pictureModel;
 @end
 
 @implementation RecognitionViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
@@ -33,6 +36,7 @@
     
     _imageView = [[UIImageView alloc]init];
     self.firstView.searchTextField.delegate = self;
+    
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -125,10 +129,95 @@
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage]; //通过key值获取到图片
     _imageView.image = image;  //给UIimageView赋值已经选择的相片
     _imageView.frame = CGRectMake(100, self.view.frame.size.height / 2 + 200, 80, 80);
+    NSString *appcode = @"020f29d085c94396a9d97ce258b8b2b4";
+    NSString *host = @"https://recover.market.alicloudapi.com";
+    NSString *path = @"/recover";
+    NSString *method = @"POST";
+    NSString *url = [NSString stringWithFormat:@"%@%@", host, path];
+//    NSString *bodys = @"img=aHR0cHM6Ly9pbWcxNC4zNjBidXlpbWcuY29tL24wL2pmcy90NjQyMS8zMS8xNzk1Nzc5NS8xODAzNTUvYzU0ZjEyZGEvNTkzN2Q2ZGJOYTAxNTI0MjQuanBn";
+    NSString *bodys = [NSString stringWithFormat:@"img=data:image/jpeg;base64,%@",[self encodeToBase64String:image]];//
+//    bodys = [self urlEncodeStr:bodys];
+    NSLog(@"%@",bodys);
+
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: url]  cachePolicy:1  timeoutInterval:  5];
+
+    request.HTTPMethod  =  method;
+
+    [request addValue:  [NSString  stringWithFormat:@"APPCODE %@" ,  appcode]  forHTTPHeaderField:  @"Authorization"];
+
+    [request addValue: @"application/x-www-form-urlencoded; charset=UTF-8" forHTTPHeaderField: @"Content-Type"];
+
+    NSData *data = [bodys dataUsingEncoding: NSUTF8StringEncoding];
+
+    [request setHTTPBody: data];
+
+    NSURLSession *requestSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+
+    NSURLSessionDataTask *task = [requestSession dataTaskWithRequest:request
+        completionHandler:^(NSData * _Nullable body , NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error != nil) {
+            NSLog(@"网络请求失败\n %@",error);
+        } else {
+        NSLog(@"Response object: %@" , response);
+//        NSString *bodyString = [[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding];
+        //打印应答中的body
+//        NSLog(@"Response body: %@",bodyString);
+            PictureModel *country = [[PictureModel alloc]initWithData:body error:nil];
+            NSLog(@"%@",[country.data[0]keyword]);
+        }
+}];
+    [task resume];
     [self.view addSubview:_imageView];
-    
      //上传图片到服务器--在这里进行图片上传的网络请求，这里不再介绍
  }
+- (NSString *)encodeToBase64String:(UIImage *)image {
+    UIImage *newImag = [self yasuoImage:image];
+    NSData *data = UIImageJPEGRepresentation(newImag, 1.0f);
+    NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    return [self urlEncodeStr:encodedImageStr];
+}
+// 压缩图片
+- (UIImage *)yasuoImage:(UIImage *)image {
+    // 图片限制大小100KB
+    NSData *tpData = UIImagePNGRepresentation(image);
+    NSInteger dxLengh = [tpData length]/1024;
+    NSInteger num = 0;
+    while (dxLengh >= 100) {
+        if (num > 100) {
+            break;
+        }
+        UIImage *tpImg = [UIImage imageWithData:tpData];
+        CGSize tpSize = tpImg.size;
+        UIImage *newImg = [self scaleToSize:tpImg size:CGSizeMake(tpSize.width*0.8, tpSize.height*0.8)];
+        tpData = UIImageJPEGRepresentation(newImg, 1);
+        dxLengh = [tpData length]/1024;
+        num = num + 1;
+    }
+    UIImage *rImage = [UIImage imageWithData:tpData];
+    return rImage;
+}
+ 
+// 压缩图片大小 并不是截取图片而是按照size绘制图片
+- (UIImage*)scaleToSize:(UIImage*)img size:(CGSize)size {
+    // 创建一个基于位图的上下文（context）,并将其设置为当前上下文(context)
+    UIGraphicsBeginImageContext(size);
+    // 绘制改变大小的图片
+    [img drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    // 从当前context中创建一个改变大小后的图片
+    UIImage* scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    // 使当前的context出堆栈
+    UIGraphicsEndImageContext();
+    // 保存图片
+    // UIImageWriteToSavedPhotosAlbum(scaledImage, nil, nil, nil);
+    return scaledImage;
+}
+
+- (NSString *)urlEncodeStr:(NSString *)input {
+    NSString *charactersToEscape = @"?!@#$^&%*+,:;='\"`<>()[]{}/\\| ";
+    NSCharacterSet *allowedCharacters = [[NSCharacterSet characterSetWithCharactersInString:charactersToEscape] invertedSet];
+    NSString *upSign = [input stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacters];
+    return upSign;
+}
 
 //当用户取消选择的时候，调用该方法
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
@@ -208,5 +297,4 @@
     // Pass the selected object to the new view controller.
 }
 */
-
 @end

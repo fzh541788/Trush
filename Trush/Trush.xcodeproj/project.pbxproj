@@ -33,12 +33,19 @@
 		60334C7E257657B9006CD8DD /* yuyin-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 60334C7D257657B9006CD8DD /* yuyin-2.png */; };
 		60334C8A2577C8D5006CD8DD /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60334C892577C8D5006CD8DD /* SearchViewController.m */; };
 		60334C9F2577CD59006CD8DD /* SearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60334C9E2577CD59006CD8DD /* SearchView.m */; };
+		6062A98A2598AFA500326B9C /* Manage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6062A9892598AFA500326B9C /* Manage.m */; };
+		6062A99C259CA81700326B9C /* PictureModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6062A99B259CA81700326B9C /* PictureModel.m */; };
 		60979328258A2BB60088EFF8 /* laokang.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 60979327258A2BB60088EFF8 /* laokang.jpeg */; };
 		6097933A258A363D0088EFF8 /* AnalyseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60979339258A363D0088EFF8 /* AnalyseViewController.m */; };
 		60979340258A36570088EFF8 /* AnalyseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6097933F258A36570088EFF8 /* AnalyseView.m */; };
 		60AC0E6D2590CF8100354F49 /* Guide1.png in Resources */ = {isa = PBXBuildFile; fileRef = 60AC0E6B2590CF8100354F49 /* Guide1.png */; };
 		60AC0E6E2590CF8100354F49 /* Guide2.png in Resources */ = {isa = PBXBuildFile; fileRef = 60AC0E6C2590CF8100354F49 /* Guide2.png */; };
-		60AC0E8C2593651E00354F49 /* lajitong-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 60AC0E8B2593651E00354F49 /* lajitong-2.png */; };
+		60AC0E9D2598641A00354F49 /* tongyong_shangla.png in Resources */ = {isa = PBXBuildFile; fileRef = 60AC0E9C2598641A00354F49 /* tongyong_shangla.png */; };
+		60AC0EB8259865DF00354F49 /* zengjia.png in Resources */ = {isa = PBXBuildFile; fileRef = 60AC0EB7259865DF00354F49 /* zengjia.png */; };
+		60AC0EBD2598693300354F49 /* luxian.png in Resources */ = {isa = PBXBuildFile; fileRef = 60AC0EBC2598693300354F49 /* luxian.png */; };
+		60AC0ECD25986DE900354F49 /* 08.png in Resources */ = {isa = PBXBuildFile; fileRef = 60AC0ECC25986DE900354F49 /* 08.png */; };
+		60AC0ED225986EAF00354F49 /* zengjia-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 60AC0ED125986EAF00354F49 /* zengjia-3.png */; };
+		60AC0ED725986FCF00354F49 /* shuaxin.png in Resources */ = {isa = PBXBuildFile; fileRef = 60AC0ED625986FCF00354F49 /* shuaxin.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +114,10 @@
 		60334C892577C8D5006CD8DD /* SearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		60334C9D2577CD59006CD8DD /* SearchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchView.h; sourceTree = "<group>"; };
 		60334C9E2577CD59006CD8DD /* SearchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchView.m; sourceTree = "<group>"; };
+		6062A9882598AFA500326B9C /* Manage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Manage.h; sourceTree = "<group>"; };
+		6062A9892598AFA500326B9C /* Manage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Manage.m; sourceTree = "<group>"; };
+		6062A99A259CA81700326B9C /* PictureModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PictureModel.h; sourceTree = "<group>"; };
+		6062A99B259CA81700326B9C /* PictureModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PictureModel.m; sourceTree = "<group>"; };
 		60979327258A2BB60088EFF8 /* laokang.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = laokang.jpeg; sourceTree = "<group>"; };
 		60979338258A363D0088EFF8 /* AnalyseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalyseViewController.h; sourceTree = "<group>"; };
 		60979339258A363D0088EFF8 /* AnalyseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnalyseViewController.m; sourceTree = "<group>"; };
@@ -114,7 +125,12 @@
 		6097933F258A36570088EFF8 /* AnalyseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnalyseView.m; sourceTree = "<group>"; };
 		60AC0E6B2590CF8100354F49 /* Guide1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Guide1.png; sourceTree = "<group>"; };
 		60AC0E6C2590CF8100354F49 /* Guide2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Guide2.png; sourceTree = "<group>"; };
-		60AC0E8B2593651E00354F49 /* lajitong-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lajitong-2.png"; sourceTree = "<group>"; };
+		60AC0E9C2598641A00354F49 /* tongyong_shangla.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tongyong_shangla.png; sourceTree = "<group>"; };
+		60AC0EB7259865DF00354F49 /* zengjia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zengjia.png; sourceTree = "<group>"; };
+		60AC0EBC2598693300354F49 /* luxian.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = luxian.png; sourceTree = "<group>"; };
+		60AC0ECC25986DE900354F49 /* 08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 08.png; sourceTree = "<group>"; };
+		60AC0ED125986EAF00354F49 /* zengjia-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zengjia-3.png"; sourceTree = "<group>"; };
+		60AC0ED625986FCF00354F49 /* shuaxin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shuaxin.png; sourceTree = "<group>"; };
 		C518A173E0FE0E629E84BD46 /* libPods-Trush.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Trush.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECB90B9D90AD4ED02424096C /* Pods-Trush.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trush.release.xcconfig"; path = "Target Support Files/Pods-Trush/Pods-Trush.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -206,6 +222,8 @@
 				60334BD8256E80EB006CD8DD /* ViewController.m */,
 				602D27A2257E61B200BC6432 /* RegisterViewController.h */,
 				602D27A3257E61B200BC6432 /* RegisterViewController.m */,
+				6062A9882598AFA500326B9C /* Manage.h */,
+				6062A9892598AFA500326B9C /* Manage.m */,
 				60334C14256E81D9006CD8DD /* First */,
 				60334C13256E81D5006CD8DD /* Second */,
 				60334C12256E81D3006CD8DD /* Third */,
@@ -301,6 +319,8 @@
 		60334C1A256E8218006CD8DD /* MainModel */ = {
 			isa = PBXGroup;
 			children = (
+				6062A99A259CA81700326B9C /* PictureModel.h */,
+				6062A99B259CA81700326B9C /* PictureModel.m */,
 			);
 			path = MainModel;
 			sourceTree = "<group>";
@@ -384,10 +404,15 @@
 				60334C762575359A006CD8DD /* shumajiadian.png */,
 				60AC0E6B2590CF8100354F49 /* Guide1.png */,
 				60AC0E6C2590CF8100354F49 /* Guide2.png */,
+				60AC0ED125986EAF00354F49 /* zengjia-3.png */,
 				60334C7D257657B9006CD8DD /* yuyin-2.png */,
 				60334C772575359A006CD8DD /* yuyin.png */,
-				60AC0E8B2593651E00354F49 /* lajitong-2.png */,
+				60AC0EB7259865DF00354F49 /* zengjia.png */,
+				60AC0EBC2598693300354F49 /* luxian.png */,
 				60979327258A2BB60088EFF8 /* laokang.jpeg */,
+				60AC0ED625986FCF00354F49 /* shuaxin.png */,
+				60AC0ECC25986DE900354F49 /* 08.png */,
+				60AC0E9C2598641A00354F49 /* tongyong_shangla.png */,
 			);
 			path = "素材图片";
 			sourceTree = "<group>";
@@ -593,14 +618,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60AC0E8C2593651E00354F49 /* lajitong-2.png in Resources */,
+				60AC0ED225986EAF00354F49 /* zengjia-3.png in Resources */,
+				60AC0ECD25986DE900354F49 /* 08.png in Resources */,
 				60334C792575359A006CD8DD /* yuyin.png in Resources */,
+				60AC0EB8259865DF00354F49 /* zengjia.png in Resources */,
 				60979328258A2BB60088EFF8 /* laokang.jpeg in Resources */,
 				60334BE1256E80ED006CD8DD /* LaunchScreen.storyboard in Resources */,
+				60AC0ED725986FCF00354F49 /* shuaxin.png in Resources */,
 				60334C7E257657B9006CD8DD /* yuyin-2.png in Resources */,
 				60AC0E6D2590CF8100354F49 /* Guide1.png in Resources */,
+				60AC0E9D2598641A00354F49 /* tongyong_shangla.png in Resources */,
 				60334BDE256E80ED006CD8DD /* Assets.xcassets in Resources */,
 				60334BDC256E80EB006CD8DD /* Main.storyboard in Resources */,
+				60AC0EBD2598693300354F49 /* luxian.png in Resources */,
 				60334C782575359A006CD8DD /* shumajiadian.png in Resources */,
 				60AC0E6E2590CF8100354F49 /* Guide2.png in Resources */,
 			);
@@ -670,6 +700,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				60334C9F2577CD59006CD8DD /* SearchView.m in Sources */,
+				6062A99C259CA81700326B9C /* PictureModel.m in Sources */,
 				602D27D32587A7CA00BC6432 /* ManageSonTableViewCell.m in Sources */,
 				60334BD9256E80EB006CD8DD /* ViewController.m in Sources */,
 				60334C38256E839C006CD8DD /* GuideViewController.m in Sources */,
@@ -681,6 +712,7 @@
 				60334BD3256E80EB006CD8DD /* AppDelegate.m in Sources */,
 				602D27B52587852C00BC6432 /* FourthSonTableViewCell.m in Sources */,
 				60334BE4256E80ED006CD8DD /* main.m in Sources */,
+				6062A98A2598AFA500326B9C /* Manage.m in Sources */,
 				60334C32256E8384006CD8DD /* MapViewController.mm in Sources */,
 				60334C5D25752717006CD8DD /* FirstView.m in Sources */,
 				602D27CA2587A44800BC6432 /* ManageView.m in Sources */,

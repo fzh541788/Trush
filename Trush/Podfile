@@ -4,5 +4,5 @@ pod 'BaiduMapKit', '6.0.0'
 pod 'BMKLocationKit'
 pod 'Masonry'
 pod 'FMDB'
-pod 'BaiduMapAPI_Search.framework'
+pod 'JSONModel'
 end      

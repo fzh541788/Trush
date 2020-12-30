@@ -18,12 +18,14 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
+  - JSONModel (1.8.0)
   - Masonry (1.1.0)
 
 DEPENDENCIES:
   - BaiduMapKit (= 6.0.0)
   - BMKLocationKit
   - FMDB
+  - JSONModel
   - Masonry
 
 SPEC REPOS:
@@ -31,14 +33,16 @@ SPEC REPOS:
     - BaiduMapKit
     - BMKLocationKit
     - FMDB
+    - JSONModel
     - Masonry
 
 SPEC CHECKSUMS:
   BaiduMapKit: e21e4c72533f263aa3c73e3b0ea13b37e7038f62
   BMKLocationKit: 097814ef672b1e57e86e6c1968d7892fb78002bf
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  JSONModel: 02ab723958366a3fd27da57ea2af2113658762e9
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
 
-PODFILE CHECKSUM: bc0f3bb40b56b9b9d66b6379b6ff0875e11f5b7f
+PODFILE CHECKSUM: b7c27038e268a7558cfe292a4dd534cf0b7e025d
 
 COCOAPODS: 1.10.0

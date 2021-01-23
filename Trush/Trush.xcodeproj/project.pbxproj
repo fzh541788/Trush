@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4EDEA67224D750FD45CEC61F /* libPods-Trush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C518A173E0FE0E629E84BD46 /* libPods-Trush.a */; };
+		601D993E25B9B33C00F9E5CC /* ResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 601D993D25B9B33C00F9E5CC /* ResultViewController.m */; };
+		601D993F25B9B33C00F9E5CC /* ResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 601D993D25B9B33C00F9E5CC /* ResultViewController.m */; };
 		602D2798257E573C00BC6432 /* FourthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 602D2797257E573C00BC6432 /* FourthView.m */; };
 		602D27A4257E61B200BC6432 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 602D27A3257E61B200BC6432 /* RegisterViewController.m */; };
 		602D27B52587852C00BC6432 /* FourthSonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 602D27B42587852C00BC6432 /* FourthSonTableViewCell.m */; };
@@ -67,6 +69,8 @@
 
 /* Begin PBXFileReference section */
 		14D0067AEF5B1FE2CD6A1233 /* Pods-Trush.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trush.debug.xcconfig"; path = "Target Support Files/Pods-Trush/Pods-Trush.debug.xcconfig"; sourceTree = "<group>"; };
+		601D993C25B9B33C00F9E5CC /* ResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResultViewController.h; sourceTree = "<group>"; };
+		601D993D25B9B33C00F9E5CC /* ResultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResultViewController.m; sourceTree = "<group>"; };
 		602D2796257E573C00BC6432 /* FourthView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FourthView.h; sourceTree = "<group>"; };
 		602D2797257E573C00BC6432 /* FourthView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FourthView.m; sourceTree = "<group>"; };
 		602D27A2257E61B200BC6432 /* RegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
@@ -161,6 +165,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		601D993B25B9B2F400F9E5CC /* result */ = {
+			isa = PBXGroup;
+			children = (
+				601D993C25B9B33C00F9E5CC /* ResultViewController.h */,
+				601D993D25B9B33C00F9E5CC /* ResultViewController.m */,
+			);
+			path = result;
+			sourceTree = "<group>";
+		};
 		602D27BC2587A3E700BC6432 /* ManageViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -294,6 +307,7 @@
 				60334CA32577CEA5006CD8DD /* SearchModel */,
 				60334C992577CCEF006CD8DD /* SearchVIew */,
 				60334C972577CCCA006CD8DD /* SearchViewController */,
+				601D993B25B9B2F400F9E5CC /* result */,
 			);
 			path = First;
 			sourceTree = "<group>";
@@ -714,6 +728,7 @@
 				60334BE4256E80ED006CD8DD /* main.m in Sources */,
 				6062A98A2598AFA500326B9C /* Manage.m in Sources */,
 				60334C32256E8384006CD8DD /* MapViewController.mm in Sources */,
+				601D993E25B9B33C00F9E5CC /* ResultViewController.m in Sources */,
 				60334C5D25752717006CD8DD /* FirstView.m in Sources */,
 				602D27CA2587A44800BC6432 /* ManageView.m in Sources */,
 				602D27A4257E61B200BC6432 /* RegisterViewController.m in Sources */,
@@ -728,6 +743,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				60334BEE256E80ED006CD8DD /* TrushTests.m in Sources */,
+				601D993F25B9B33C00F9E5CC /* ResultViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

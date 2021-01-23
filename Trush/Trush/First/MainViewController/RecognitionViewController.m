@@ -12,10 +12,13 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "PictureModel.h"
+#import "ResultViewController.h"
+#import "Manage.h"
 
 @interface RecognitionViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate,UITextFieldDelegate,AVAudioRecorderDelegate>
 @property (nonatomic, strong)FirstView *firstView;
 @property (nonatomic, strong)PictureModel *pictureModel;
+@property (nonatomic, strong)ResultViewController *secondView;
 @end
 
 @implementation RecognitionViewController
@@ -24,6 +27,7 @@
     
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    _secondView = [[ResultViewController alloc]init];
     // Do any additional setup after loading the view.
     _firstView = [[FirstView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [self.view addSubview:_firstView];
@@ -123,52 +127,25 @@
     [self presentViewController:_imagePickerController animated:YES completion:nil];
 }
 
-#pragma mark -实现图片选择器代理-（上传图片的网络请求也是在这个方法里面进行，这里我不再介绍具体怎么上传图片）
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
      [picker dismissViewControllerAnimated:YES completion:^{}];
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage]; //通过key值获取到图片
     _imageView.image = image;  //给UIimageView赋值已经选择的相片
-    _imageView.frame = CGRectMake(100, self.view.frame.size.height / 2 + 200, 80, 80);
-    NSString *appcode = @"020f29d085c94396a9d97ce258b8b2b4";
-    NSString *host = @"https://recover.market.alicloudapi.com";
-    NSString *path = @"/recover";
-    NSString *method = @"POST";
-    NSString *url = [NSString stringWithFormat:@"%@%@", host, path];
-//    NSString *bodys = @"img=aHR0cHM6Ly9pbWcxNC4zNjBidXlpbWcuY29tL24wL2pmcy90NjQyMS8zMS8xNzk1Nzc5NS8xODAzNTUvYzU0ZjEyZGEvNTkzN2Q2ZGJOYTAxNTI0MjQuanBn";
-    NSString *bodys = [NSString stringWithFormat:@"img=data:image/jpeg;base64,%@",[self encodeToBase64String:image]];//
-//    bodys = [self urlEncodeStr:bodys];
-    NSLog(@"%@",bodys);
-
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: url]  cachePolicy:1  timeoutInterval:  5];
-
-    request.HTTPMethod  =  method;
-
-    [request addValue:  [NSString  stringWithFormat:@"APPCODE %@" ,  appcode]  forHTTPHeaderField:  @"Authorization"];
-
-    [request addValue: @"application/x-www-form-urlencoded; charset=UTF-8" forHTTPHeaderField: @"Content-Type"];
-
-    NSData *data = [bodys dataUsingEncoding: NSUTF8StringEncoding];
-
-    [request setHTTPBody: data];
-
-    NSURLSession *requestSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-
-    NSURLSessionDataTask *task = [requestSession dataTaskWithRequest:request
-        completionHandler:^(NSData * _Nullable body , NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error != nil) {
-            NSLog(@"网络请求失败\n %@",error);
-        } else {
-        NSLog(@"Response object: %@" , response);
-//        NSString *bodyString = [[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding];
-        //打印应答中的body
-//        NSLog(@"Response body: %@",bodyString);
-            PictureModel *country = [[PictureModel alloc]initWithData:body error:nil];
-            NSLog(@"%@",[country.data[0]keyword]);
+    [[Manage sharedManager]NetWorkPicture:[self encodeToBase64String:image] and:^(PictureModel * _Nonnull mainViewNowModel) {
+            NSLog(@"%@",[mainViewNowModel.data[0]list]);
+        self->_secondView.maybe = [[NSMutableArray alloc]init];
+        self->_secondView.name = [[NSMutableArray alloc]init];
+        for (int i = 0; i < [mainViewNowModel.data[0]list].count; i++) {
+            [self->_secondView.maybe addObject:[[mainViewNowModel.data[0]list][i]category]];
+            [self->_secondView.name addObject:[[mainViewNowModel.data[0]list][i]name]];
         }
-}];
-    [task resume];
-    [self.view addSubview:_imageView];
-     //上传图片到服务器--在这里进行图片上传的网络请求，这里不再介绍
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.secondView.tableView reloadData];
+            [self presentViewController:self->_secondView animated:YES completion:nil];
+        });
+        } error:^(NSError * _Nonnull error) {
+            NSLog(@"网络请求失败");
+        }];
  }
 - (NSString *)encodeToBase64String:(UIImage *)image {
     UIImage *newImag = [self yasuoImage:image];

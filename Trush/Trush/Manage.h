@@ -12,9 +12,11 @@ typedef void (^SucceedBlock)(PictureModel * _Nonnull mainViewNowModel);
 typedef void (^ErrorBlock)(NSError * _Nonnull error);
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Manage : NSObject
+@interface Manage : NSObject<NSURLSessionDelegate>
 
 + (instancetype)sharedManager;
+
+- (void)NetWorkPicture:(NSString *)a and:(SucceedBlock)succeedBlock error:(ErrorBlock)errorBlock;
 //封装一下
 @end
 

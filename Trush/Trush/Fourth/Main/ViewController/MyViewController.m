@@ -53,7 +53,6 @@
 
 - (void)clickChange {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请输入新密码" preferredStyle:UIAlertControllerStyleAlert];
-    
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"请输入修改后的密码";
     }];

@@ -11,14 +11,22 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
-#import "PictureModel.h"
+//#import "PictureModel.h"
 #import "ResultViewController.h"
 #import "Manage.h"
+#import <Speech/Speech.h>
+ 
 
-@interface RecognitionViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate,UITextFieldDelegate,AVAudioRecorderDelegate>
+@interface RecognitionViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate,UITextFieldDelegate,AVAudioRecorderDelegate,SFSpeechRecognizerDelegate>
 @property (nonatomic, strong)FirstView *firstView;
-@property (nonatomic, strong)PictureModel *pictureModel;
+//@property (nonatomic, strong)PictureModel *pictureModel;
+
+@property (weak, nonatomic) IBOutlet UITextView *resultTextView;
 @property (nonatomic, strong)ResultViewController *secondView;
+@property (strong, nonatomic) SFSpeechRecognitionTask  *recognitionTask;
+@property (strong, nonatomic) SFSpeechRecognizer       *speechRecognizer;
+@property (strong, nonatomic) SFSpeechAudioBufferRecognitionRequest *recognitionRequest;
+
 @end
 
 @implementation RecognitionViewController
@@ -40,6 +48,8 @@
     
     _imageView = [[UIImageView alloc]init];
     self.firstView.searchTextField.delegate = self;
+    
+    _testName = [[NSString alloc]init];
     
 }
 
@@ -217,10 +227,10 @@
         //  URL是本地的URL AVAudioRecorder需要一个存储的路径
         NSString *name = [NSString stringWithFormat:@"%d.aiff" ,( int )[NSDate date].timeIntervalSince1970];
         
-        NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:name];
+        self->_path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:name];
         NSError *error;
         //  录音机 初始化
-        self->_audioRecorder = [[AVAudioRecorder alloc]initWithURL:[NSURL fileURLWithPath:path] settings:@{AVNumberOfChannelsKey:@2,AVSampleRateKey:@44100,AVLinearPCMBitDepthKey:@32,AVEncoderAudioQualityKey:@(AVAudioQualityMax),AVEncoderBitRateKey:@128000} error:&error];
+        self->_audioRecorder = [[AVAudioRecorder alloc]initWithURL:[NSURL fileURLWithPath:self->_path] settings:@{AVNumberOfChannelsKey:@2,AVSampleRateKey:@44100,AVLinearPCMBitDepthKey:@32,AVEncoderAudioQualityKey:@(AVAudioQualityMax),AVEncoderBitRateKey:@128000} error:&error];
         [self->_audioRecorder prepareToRecord];
         [self->_audioRecorder record];
         self->_audioRecorder.delegate = self;
@@ -236,42 +246,61 @@
              ⑤ AVAudioQualityMax  = 0x7F 最好的质量
          5.AVEncoderBitRateKey 音频编码的比特率 单位Kbps 传输的速率 一般设置128000 也就是128kbps
          */
-        NSLog(@ "%@" ,path);
+        NSLog(@ "%@" ,self->_path);
     }];
-                    [alert addAction:sureAction];
-                    [self presentViewController:alert animated:NO completion:nil];
+        [alert addAction:sureAction];
+        [self presentViewController:alert animated:NO completion:nil];
 
 }
 - (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:( BOOL )flag{
    NSLog(@ "录音结束" );
-////  文件操作的类
-//   NSFileManager *manger = [NSFileManager defaultManager];
-// 
-//   NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
-////  获得当前文件的所有子文件subpathsAtPath
-//   NSArray *pathlList = [manger subpathsAtPath:path];
-// 
-////  需要只获得录音文件
-//   NSMutableArray *audioPathList = [NSMutableArray array];
-////  遍历所有这个文件夹下的子文件
-//   for (NSString *audioPath in pathlList) {
-////    通过对比文件的延展名（扩展名 尾缀） 来区分是不是录音文件
-//     if ([audioPath.pathExtension isEqualToString:@ "aiff" ]) {
-////      把筛选出来的文件放到数组中
-//       [audioPathList addObject:audioPath];
-//     }
-//   }
-//   
-//   NSLog(@ "%@" ,audioPathList);
-   
-}
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+//  文件操作的类
+   NSFileManager *manger = [NSFileManager defaultManager];
+
+   NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+//  获得当前文件的所有子文件subpathsAtPath
+   NSArray *pathlList = [manger subpathsAtPath:path];
+
+//  需要只获得录音文件
+   NSMutableArray *audioPathList = [NSMutableArray array];
+//  遍历所有这个文件夹下的子文件
+   for (NSString *audioPath in pathlList) {
+//    通过对比文件的延展名（扩展名 尾缀） 来区分是不是录音文件
+     if ([audioPath.pathExtension isEqualToString:@ "aiff" ]) {
+//      把筛选出来的文件放到数组中
+       [audioPathList addObject:audioPath];
+     }
+   }
+   NSLog(@"%@" ,audioPathList);
+    
+    SFSpeechRecognizer *recognizer = [[SFSpeechRecognizer alloc] initWithLocale:[NSLocale localeWithLocaleIdentifier:@"zh_CN"]];
+    NSURL *url = [NSURL fileURLWithPath:_path];
+    NSLog(@"%@",url);
+    SFSpeechURLRecognitionRequest *request = [[SFSpeechURLRecognitionRequest alloc] initWithURL:url];
+    [recognizer recognitionTaskWithRequest:request resultHandler:^(SFSpeechRecognitionResult * _Nullable result, NSError * _Nullable error) {
+        if (error != NULL) {
+            NSLog(@"%@",error);
+        } else {
+        if (result.isFinal) {
+            [[Manage sharedManager]NetWorkText:[result.bestTranscription.formattedString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]] and:^(TextModel * _Nonnull mainViewNowModel) {
+                self->_secondView.maybe = [[NSMutableArray alloc]init];
+                self->_secondView.name = [[NSMutableArray alloc]init];
+                for (int i = 0; i < mainViewNowModel.data.list.count; i++) {
+                    [self->_secondView.maybe addObject:[mainViewNowModel.data.list[i]category]];
+                    [self->_secondView.name addObject:[mainViewNowModel.data.list[i]name]];
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.secondView.tableView reloadData];
+                    [self presentViewController:self->_secondView animated:YES completion:nil];
+                });
+                } error:^(NSError * _Nonnull error) {
+                    NSLog(@"网络请求失败");
+                }];
+        }
+        }
+    }];
+    
 }
-*/
+
 @end

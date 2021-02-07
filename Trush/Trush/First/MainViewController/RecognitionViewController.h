@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UIImagePickerController *imagePickerController;
 @property (nonatomic, strong) AVAudioRecorder *audioRecorder;
+@property (nonatomic, strong) NSString *path;
+@property (nonatomic, strong) NSString *testName;
 
 @property (nonatomic, strong) UIImageView *imageView;
 

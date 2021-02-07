@@ -7,8 +7,10 @@
 
 #import <Foundation/Foundation.h>
 #import "PictureModel.h"
+#import "TextModel.h"
 
 typedef void (^SucceedBlock)(PictureModel * _Nonnull mainViewNowModel);
+typedef void (^TextSucceedBlock)(TextModel * _Nonnull mainViewNowModel);
 typedef void (^ErrorBlock)(NSError * _Nonnull error);
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)sharedManager;
 
 - (void)NetWorkPicture:(NSString *)a and:(SucceedBlock)succeedBlock error:(ErrorBlock)errorBlock;
+- (void)NetWorkText:(NSString *)a and:(TextSucceedBlock)textSucceedBlock error:(ErrorBlock)errorBlock;
 //封装一下
 @end
 

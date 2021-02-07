@@ -18,7 +18,7 @@ static Manage *manager = nil;
     }
     return manager;
 }
--(void)NetWorkPicture:(NSString *)a and:(SucceedBlock)succeedBlock error:(ErrorBlock)errorBlock{
+- (void)NetWorkPicture:(NSString *)a and:(SucceedBlock)succeedBlock error:(ErrorBlock)errorBlock{
     NSString *appcode = @"020f29d085c94396a9d97ce258b8b2b4";
     NSString *host = @"https://recover.market.alicloudapi.com";
     NSString *path = @"/recover";
@@ -48,11 +48,40 @@ static Manage *manager = nil;
         if (error != nil) {
             NSLog(@"网络请求失败\n %@",error);
         } else {
-//        NSLog(@"Response object: %@" , response);
             PictureModel *country = [[PictureModel alloc]initWithData:body error:nil];
+            NSLog(@"%@",country.ret);
             succeedBlock(country);
         }
 }];
+    [task resume];
+}
+
+- (void)NetWorkText:(NSString *)a and:(TextSucceedBlock)textSucceedBlock error:(ErrorBlock)errorBlock{
+    NSString *appcode = @"020f29d085c94396a9d97ce258b8b2b4";
+    NSString *host = @"https://recover2.market.alicloudapi.com";
+    NSString *path = @"/recover_word";
+    NSString *method = @"GET";
+    NSString *querys = @"?name=";
+    NSString *url = [NSString stringWithFormat:@"%@%@%@%@",  host,  path , querys, a];
+
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: url]  cachePolicy:1  timeoutInterval:  5];
+    request.HTTPMethod  =  method;
+    [request addValue:  [NSString  stringWithFormat:@"APPCODE %@" ,  appcode]  forHTTPHeaderField:  @"Authorization"];
+    NSURLSession *requestSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    NSURLSessionDataTask *task = [requestSession dataTaskWithRequest:request
+        completionHandler:^(NSData * _Nullable body , NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error != nil) {
+            NSLog(@"网络请求失败\n %@",error);
+        } else {
+//                NSString *bodyString = [[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding];
+//               打印应答中的body
+//               NSLog(@"Response body: %@" , bodyString);
+            TextModel *country = [[TextModel alloc] initWithData:body error:nil];
+//            NSLog(@"country：%@",country.data);
+            textSucceedBlock(country);
+        }
+        }];
+    
     [task resume];
 }
 

@@ -55,7 +55,7 @@
             layer.strokeColor = [UIColor whiteColor].CGColor; // 描边颜色
             layer.fillColor = [self colorWithHexString:self.colorArray[i]].CGColor; // 背景填充色
             [pieView.layer addSublayer:layer];
-            
+            //通过这句话计算
             startAngle = startAngle + [num floatValue] / total * M_PI * 2 ;
         }
     pieView.layer.mask = bgLayer;

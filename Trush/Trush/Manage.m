@@ -19,7 +19,7 @@ static Manage *manager = nil;
     return manager;
 }
 - (void)NetWorkPicture:(NSString *)a and:(SucceedBlock)succeedBlock error:(ErrorBlock)errorBlock{
-    NSString *appcode = @"020f29d085c94396a9d97ce258b8b2b4";
+    NSString *appcode = @"a2d5ec51ea4f4e628daad0dfab51752e";
     NSString *host = @"https://recover.market.alicloudapi.com";
     NSString *path = @"/recover";
     NSString *method = @"POST";
@@ -57,7 +57,7 @@ static Manage *manager = nil;
 }
 
 - (void)NetWorkText:(NSString *)a and:(TextSucceedBlock)textSucceedBlock error:(ErrorBlock)errorBlock{
-    NSString *appcode = @"020f29d085c94396a9d97ce258b8b2b4";
+    NSString *appcode = @"a2d5ec51ea4f4e628daad0dfab51752e";
     NSString *host = @"https://recover2.market.alicloudapi.com";
     NSString *path = @"/recover_word";
     NSString *method = @"GET";

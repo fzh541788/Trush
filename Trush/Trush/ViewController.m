@@ -98,10 +98,16 @@
         UINavigationController *a2 = [[UINavigationController alloc]initWithRootViewController:mapViewController];
         UINavigationController *a3 = [[UINavigationController alloc]initWithRootViewController:guideViewController];
         UINavigationController *a4 = [[UINavigationController alloc]initWithRootViewController:myViewController];
-     
+
+        recognitionViewController.view.backgroundColor = [UIColor whiteColor];
+        mapViewController.view.backgroundColor = [UIColor whiteColor];
+        guideViewController.view.backgroundColor = [UIColor whiteColor];
+        myViewController.view.backgroundColor = [UIColor whiteColor];
+
         NSArray *array = [[NSArray alloc]initWithObjects:a1,a2,a3,a4,nil];
         
         UITabBarController *tabBarController = [[UITabBarController alloc]init];
+        [[UITabBarItem appearance] setTitlePositionAdjustment:UIOffsetMake(0, 10)];
         tabBarController.viewControllers = array;
         self.view.window.rootViewController = tabBarController;
     } else {

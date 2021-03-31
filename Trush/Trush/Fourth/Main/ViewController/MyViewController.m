@@ -20,8 +20,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+//    self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
+    UIImage *tabBarImage = [UIImage imageNamed:@"kehuxiangqing-2.png"];
+    UITabBarItem *fourthTabBarItem = [[UITabBarItem alloc]initWithTitle:@"我的" image:tabBarImage tag:1];
+//    [fourthTabBarItem setTitlePositionAdjustment:UIOffsetMake(0, 10)];
+    fourthTabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, 0, 0);
+    self.tabBarItem = fourthTabBarItem;
     _fourthView = [[FourthView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [self.view addSubview:_fourthView];
     self.navigationItem.title = @"我的";

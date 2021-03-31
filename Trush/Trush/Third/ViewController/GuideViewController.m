@@ -15,6 +15,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    self.view.backgroundColor = [UIColor whiteColor];
+    UIImage *tabBarImage = [UIImage imageNamed:@"kehutousu.png"];
+    UITabBarItem *thirdTabBarItem = [[UITabBarItem alloc]initWithTitle:@"指南" image:tabBarImage tag:4];
+    thirdTabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, 0, 0);
+    self.tabBarItem = thirdTabBarItem;
     self.view.backgroundColor = [UIColor colorWithRed:0.6784 green:0.91 blue:0.4627 alpha:1];
     // Do any additional setup after loading the view.
     

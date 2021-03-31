@@ -12,13 +12,19 @@
 #import <BaiduMapAPI_Base/BMKBaseComponent.h>
 #import <BaiduMapAPI_Search/BMKSearchComponent.h>
 #import "Masonry.h"
+#import "TestView.h"
+#define mas_height self.view.frame.size.height
+#define mas_width self.view.frame.size.width
+
 
 @interface MapViewController ()<BMKMapViewDelegate,BMKLocationManagerDelegate,UIScrollViewDelegate,BMKRouteSearchDelegate>
 @property (nonatomic, strong) BMKUserLocation *userLocation;
 @property (nonatomic, strong) BMKLocationManager *locationManager; //定位对象
 @property (nonatomic, strong) BMKMapView *mapView;
 @property (nonatomic, assign) NSInteger flag;
+@property (nonatomic, assign) NSInteger didPressButton;
 @property (nonatomic, strong) BMKPlanNode *temporaryEnd;
+@property (nonatomic, strong) TestView *testView;
 //@property (nonatomic, copy) NSMutableArray *location;
 @end
 
@@ -26,6 +32,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"%f",mas_height);
+//    self.view.backgroundColor = [UIColor whiteColor];
+    UIImage *tabBarImage = [UIImage imageNamed:@"ditudaohang-2.png"];
+    UITabBarItem *secondTabBarItem = [[UITabBarItem alloc]initWithTitle:@"回收" image:tabBarImage tag:3];
+    secondTabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, 0, 0);
+    self.tabBarItem = secondTabBarItem;
     _mapView = [[BMKMapView alloc]initWithFrame:self.view.bounds];
     _mapView.delegate = self;
     // 显示定位信息
@@ -39,11 +51,24 @@
 //    [self.locationManager startUpdatingHeading];
     _buttomButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_buttomButton setImage:[UIImage imageNamed:@"tongyong_shangla.png"] forState:UIControlStateNormal];
-    _buttomButton.frame = CGRectMake(0, self.view.frame.size.height - 130, self.view.frame.size.width, 48);
+    [self.view addSubview:_buttomButton];
     _buttomButton.backgroundColor = [UIColor whiteColor];
     [_buttomButton addTarget:self action:@selector(pressMore:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_buttomButton];
+    [_buttomButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view.mas_top).offset(mas_height * 0.85961);
+            make.left.equalTo(self.view.mas_left).offset(0);
+            make.size.mas_equalTo(CGSizeMake(mas_width, 48));
+    }];
+    _testView = [[TestView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height , self.view.frame.size.width, 200)];
+    [self.view addSubview:_testView];
+//    _testView = [[TestView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 200, self.view.frame.size.width, 200)];
+//    _testView.hidden = YES;
     
+    [_testView.upButton addTarget:self action:@selector(pressUpButton) forControlEvents:UIControlEventTouchUpInside];
+    [_testView.nearlyButton addTarget:self action:@selector(pressNearlyButton) forControlEvents:UIControlEventTouchUpInside];
+    [_testView.delegtWayButton addTarget:self action:@selector(pressDelegtWayButton) forControlEvents:UIControlEventTouchUpInside];
+    [_testView.refreshButton addTarget:self action:@selector(pressRefreshButton) forControlEvents:UIControlEventTouchUpInside];
+    [_testView.pictureButton addTarget:self action:@selector(pressPicture) forControlEvents:UIControlEventTouchUpInside];
 }
 //增加垃圾桶图片 到这去 刷新路径 删除点
 - (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id<BMKAnnotation>)annotation {
@@ -77,7 +102,7 @@
     }
     if (button.tag == 2) {
         end.pt = CLLocationCoordinate2DMake(34.147098, 108.9012);
-        _temporaryEnd.pt = CLLocationCoordinate2DMake(34.167098, 108.9012);
+        _temporaryEnd.pt = CLLocationCoordinate2DMake(34.147098, 108.9012);
     }
    
     
@@ -218,77 +243,86 @@
 }
 
 - (void)pressMore:(UIButton *)button {
-    button.frame = CGRectMake(0, self.view.frame.size.height - 328, self.view.frame.size.width, 48);
-    [button addTarget:self action:@selector(unPressMore:) forControlEvents:UIControlEventTouchUpInside];
-    _viewTest = [[UIScrollView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 280, self.view.frame.size.width, 200)];
-    _viewTest.backgroundColor = [UIColor whiteColor];
-    _viewTest.tag = 22;
-    [self.view addSubview:_viewTest];
-    _viewTest.pagingEnabled = NO;
-    _viewTest.delegate = self;
-    _viewTest.contentSize = CGSizeMake(self.view.frame.size.width, 201);
-    _viewTest.showsVerticalScrollIndicator = FALSE;
-    _viewTest.showsHorizontalScrollIndicator = FALSE;
-    
-    _upButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_upButton setFrame:CGRectMake(self.view.frame.size.width * 0.0701, 25, 65, 65)];
-    [_upButton setImage:[UIImage imageNamed:@"zengjia-3.png"] forState:UIControlStateNormal];
-    [_upButton addTarget:self action:@selector(pressUpButton) forControlEvents:UIControlEventTouchUpInside];
-    [_viewTest addSubview:_upButton];
-    UILabel *upLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 60, 80, 30)];
-    upLabel.text = @"增加回收点";
-    upLabel.textColor = [UIColor blackColor];
-    upLabel.font = [UIFont systemFontOfSize:13];
-    [_upButton addSubview:upLabel];
-    
-    _nearlyButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_nearlyButton setFrame:CGRectMake(self.view.frame.size.width * 0.56075, 30, 55, 55)];
-    [_nearlyButton setImage:[UIImage imageNamed:@"08.png"] forState:UIControlStateNormal];
-    [_nearlyButton addTarget:self action:@selector(pressNearlyButton) forControlEvents:UIControlEventTouchUpInside];
-    [_viewTest addSubview:_nearlyButton];
-    UILabel *nearlyLabel = [[UILabel alloc]initWithFrame:CGRectMake(-5, 55, 80, 30)];
-    nearlyLabel.text = @"附近回收点";
-    nearlyLabel.textColor = [UIColor blackColor];
-    nearlyLabel.font = [UIFont systemFontOfSize:13];
-    [_nearlyButton addSubview:nearlyLabel];
-    
-    _delegtWayButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_delegtWayButton setFrame:CGRectMake(self.view.frame.size.width * 0.327, 20, 64, 64)];
-    [_delegtWayButton setImage:[UIImage imageNamed:@"luxian.png"] forState:UIControlStateNormal];
-    [_delegtWayButton addTarget:self action:@selector(pressDelegtWayButton) forControlEvents:UIControlEventTouchUpInside];
-    [_viewTest addSubview:_delegtWayButton];
-    UILabel *delegtLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 65, 80, 30)];
-    delegtLabel.text = @"取消规划";
-    delegtLabel.textColor = [UIColor blackColor];
-    delegtLabel.font = [UIFont systemFontOfSize:13];
-    [_delegtWayButton addSubview:delegtLabel];
-    
-    
-    _refreshButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_refreshButton setFrame:CGRectMake(self.view.frame.size.width * 0.7944, 30, 55, 55)];
-    [_refreshButton setImage:[UIImage imageNamed:@"shuaxin.png"] forState:UIControlStateNormal];
-    [_refreshButton addTarget:self action:@selector(pressRefreshButton) forControlEvents:UIControlEventTouchUpInside];
-    [_viewTest addSubview:_refreshButton];
-    UILabel *refreshLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 55, 80, 30)];
-    refreshLabel.text = @"刷新规划";
-    refreshLabel.textColor = [UIColor blackColor];
-    refreshLabel.font = [UIFont systemFontOfSize:13];
-    [_refreshButton addSubview:refreshLabel];
-    
-    _pictureButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [_pictureButton setTitle:@"图片" forState:UIControlStateNormal];
-    _pictureButton.frame = CGRectMake(170, 150, 80, 20);
-    [_viewTest addSubview:_pictureButton];
-    _pictureButton.hidden = YES;
-    [_pictureButton addTarget:self action:@selector(pressPicture) forControlEvents:UIControlEventTouchUpInside];
+    if (_didPressButton == 0) {
+        //弹出动画
+        CABasicAnimation *firstUpAnima = [CABasicAnimation animationWithKeyPath:@"position"];
+        firstUpAnima.fromValue = [NSValue valueWithCGPoint:CGPointMake(mas_width / 2, mas_height * 0.88561)];
+        firstUpAnima.toValue = [NSValue valueWithCGPoint:CGPointMake(mas_width / 2, mas_height * 0.68)];
+        firstUpAnima.duration = 0.54f;
+        //如果fillMode=kCAFillModeForwards和removedOnComletion=NO，那么在动画执行完毕后，图层会保持显示动画执行后的状态。但在实质上，图层的属性值还是动画执行前的初始值，并没有真正被改变。
+        firstUpAnima.fillMode = kCAFillModeForwards;
+        firstUpAnima.removedOnCompletion = NO;
+        firstUpAnima.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+        [button.layer addAnimation:firstUpAnima forKey:@"positionAnimation"];
+        
+        CABasicAnimation *testViewUpAnima = [CABasicAnimation animationWithKeyPath:@"position"];
+        testViewUpAnima.fromValue = [NSValue valueWithCGPoint:CGPointMake(mas_width / 2, mas_height)];
+        testViewUpAnima.toValue = [NSValue valueWithCGPoint:CGPointMake(mas_width / 2, mas_height * 0.81)];
+        testViewUpAnima.duration = 0.55f;
+        //如果fillMode=kCAFillModeForwards和removedOnComletion=NO，那么在动画执行完毕后，图层会保持显示动画执行后的状态。但在实质上，图层的属性值还是动画执行前的初始值，并没有真正被改变。
+        testViewUpAnima.fillMode = kCAFillModeForwards;
+        testViewUpAnima.removedOnCompletion = NO;
+        testViewUpAnima.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+        [_testView.layer addAnimation:testViewUpAnima forKey:@"positionAnimation"];
+        
+        [button mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.view.mas_top).offset(mas_height * 0.645788);
+                    make.left.equalTo(self.view.mas_left).offset(0);
+                    make.size.mas_equalTo(CGSizeMake(mas_width, 48));
+        }];
+        
+    //    button.frame = CGRectMake(0, self.view.frame.size.height - 328, self.view.frame.size.width, 48);
+
+//        [button addTarget:self action:@selector(unPressMore:) forControlEvents:UIControlEventTouchUpInside];
+        
+        _testView.frame = CGRectMake(0, self.view.frame.size.height - 240 , self.view.frame.size.width, 200);
+    } else if(_didPressButton == 1) {
+        CABasicAnimation *firstDownAnima = [CABasicAnimation animationWithKeyPath:@"position"];
+        firstDownAnima.fromValue = [NSValue valueWithCGPoint:CGPointMake(mas_width / 2, mas_height * 0.68)];
+        firstDownAnima.toValue = [NSValue valueWithCGPoint:CGPointMake(mas_width / 2, mas_height * 0.88561)];
+        firstDownAnima.duration = 0.6f;
+        //如果fillMode=kCAFillModeForwards和removedOnComletion=NO，那么在动画执行完毕后，图层会保持显示动画执行后的状态。但在实质上，图层的属性值还是动画执行前的初始值，并没有真正被改变。
+        firstDownAnima.fillMode = kCAFillModeForwards;
+        firstDownAnima.removedOnCompletion = NO;
+        firstDownAnima.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+        [button.layer addAnimation:firstDownAnima forKey:@"positionAnimation"];
+            [button mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.view.mas_top).offset(mas_height * 0.85961);
+                    make.left.equalTo(self.view.mas_left).offset(0);
+                    make.size.mas_equalTo(CGSizeMake(mas_width, 48));
+            }];
+        
+        CABasicAnimation *testViewDownAnima = [CABasicAnimation animationWithKeyPath:@"position"];
+        testViewDownAnima.fromValue = [NSValue valueWithCGPoint:CGPointMake(mas_width / 2, mas_height * 0.81)];
+        testViewDownAnima.toValue = [NSValue valueWithCGPoint:CGPointMake(mas_width / 2, mas_height + 15)];
+        testViewDownAnima.duration = 0.6f;
+        //如果fillMode=kCAFillModeForwards和removedOnComletion=NO，那么在动画执行完毕后，图层会保持显示动画执行后的状态。但在实质上，图层的属性值还是动画执行前的初始值，并没有真正被改变。
+        testViewDownAnima.fillMode = kCAFillModeForwards;
+        testViewDownAnima.removedOnCompletion = NO;
+        testViewDownAnima.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+        [_testView.layer addAnimation:testViewDownAnima forKey:@"positionAnimation"];
+        
+        _testView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 200);
+        
+//        [button addTarget:self action:@selector(pressMore:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    _didPressButton = !_didPressButton;
 }
 
 - (void)pressPicture {
 
         if (_didSecondChange) {
-            [_pictureButton setTitle:@"图片" forState:UIControlStateNormal];
-        } else {
-            [_pictureButton setTitle:@"收起" forState:UIControlStateNormal];
+            [_testView.pictureButton setTitle:@"图片" forState:UIControlStateNormal];
+            //创建个view
+            UIView *pictureView = [[UIView alloc]init];
+            [pictureView mas_makeConstraints:^(MASConstraintMaker *make) {
+                            
+            }];
+            pictureView.backgroundColor = [UIColor whiteColor];
+            pictureView.tag = 22;
+            [self.view addSubview:pictureView];
+            } else {
+                [_testView.pictureButton setTitle:@"收起" forState:UIControlStateNormal];
 //                _viewTest.frame = CGRectMake(0, self.view.frame.size.height - 480, self.view.frame.size.width, 200);
 //                _secondView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 280, self.view.frame.size.width, 200)];
 //                _secondView.backgroundColor = [UIColor whiteColor];
@@ -301,11 +335,12 @@
 //                _secondView.showsHorizontalScrollIndicator = FALSE;
         }
         _didSecondChange = !_didSecondChange;
+    
 }
 
 
 - (void)pressUpButton {
-    
+//    NSLog(@"123");
 }
 
 - (void)pressNearlyButton {
@@ -325,14 +360,15 @@
     annotation1.subtitle = @"2";
     [_mapView addAnnotation:annotation1];
     _flag = 1;
-    _pictureButton.hidden = NO;
+    _testView.pictureButton.hidden = NO;
 }
 
 - (void)pressDelegtWayButton {
     [self.mapView removeOverlays:self.mapView.overlays];
     [self.mapView removeAnnotations:self.mapView.annotations];
     _flag = 0;
-    _pictureButton.hidden = YES;
+    _testView.pictureButton.hidden = YES;
+    [_mapView setZoomLevel:16];
 }
 
 - (void)pressRefreshButton {
@@ -353,29 +389,6 @@
         NSLog(@"步行路线规划检索发送失败");
     }
 }
-
-- (void)unPressMore:(UIButton *)button {
-//    [button setTitle:@"      -      " forState:UIControlStateNormal];
-    _buttomButton.frame = CGRectMake(0, self.view.frame.size.height - 130, self.view.frame.size.width, 48);
-    [button addTarget:self action:@selector(pressMore:) forControlEvents:UIControlEventTouchUpInside];
-    
-    for (UIView *subviews in [self.view subviews]) {
-            if (subviews.tag == 22) {
-                [subviews removeFromSuperview];
-            }
-        }
-}
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGFloat currentOffsetY = scrollView.contentOffset.y;
-    for (UIView *subviews in [self.view subviews]) {
-            if (subviews.tag == 22) {
-                if (currentOffsetY < 0) {
-                    [self unPressMore:_buttomButton];
-                }
-            }
-        }
-}
-
 
 - (void)locationManage {
     //因为mapView是在一个分离出来的view中创建的，所以在这里将signSetTypeView中的mapView赋给当前viewcontroller的mapView；
@@ -435,7 +448,6 @@
                 NSLog(@"LOC = %f , %f",location.location.coordinate.longitude,location.location.coordinate.latitude);
                 self->_locationOne = location.location.coordinate.latitude;
                 self->_locationTwo = location.location.coordinate.longitude;
-                
             }
             if (location.rgcData) {
                 NSLog(@"rgc = %@",[location.rgcData description]);

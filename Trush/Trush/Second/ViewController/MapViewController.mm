@@ -17,7 +17,7 @@
 #define mas_width self.view.frame.size.width
 
 
-@interface MapViewController ()<BMKMapViewDelegate,BMKLocationManagerDelegate,UIScrollViewDelegate,BMKRouteSearchDelegate>
+@interface MapViewController ()<BMKMapViewDelegate,BMKLocationManagerDelegate,UIScrollViewDelegate,BMKRouteSearchDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic, strong) BMKUserLocation *userLocation;
 @property (nonatomic, strong) BMKLocationManager *locationManager; //定位对象
 @property (nonatomic, strong) BMKMapView *mapView;
@@ -25,6 +25,7 @@
 @property (nonatomic, assign) NSInteger didPressButton;
 @property (nonatomic, strong) BMKPlanNode *temporaryEnd;
 @property (nonatomic, strong) TestView *testView;
+@property (nonatomic, strong) UIView *pictureView;
 //@property (nonatomic, copy) NSMutableArray *location;
 @end
 
@@ -50,7 +51,7 @@
     [self locationManage];
 //    [self.locationManager startUpdatingHeading];
     _buttomButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_buttomButton setImage:[UIImage imageNamed:@"tongyong_shangla.png"] forState:UIControlStateNormal];
+    [_buttomButton setImage:[UIImage imageNamed:@"shouhui.png"] forState:UIControlStateNormal];
     [self.view addSubview:_buttomButton];
     _buttomButton.backgroundColor = [UIColor whiteColor];
     [_buttomButton addTarget:self action:@selector(pressMore:) forControlEvents:UIControlEventTouchUpInside];
@@ -69,6 +70,29 @@
     [_testView.delegtWayButton addTarget:self action:@selector(pressDelegtWayButton) forControlEvents:UIControlEventTouchUpInside];
     [_testView.refreshButton addTarget:self action:@selector(pressRefreshButton) forControlEvents:UIControlEventTouchUpInside];
     [_testView.pictureButton addTarget:self action:@selector(pressPicture) forControlEvents:UIControlEventTouchUpInside];
+    
+    _imagePickerController = [[UIImagePickerController alloc] init];
+    _imagePickerController.delegate = self;
+    _imagePickerController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    _imagePickerController.allowsEditing = YES;
+    
+    _testView.pictureButton.hidden = YES;
+    
+    _pictureView = [[UIView alloc]init];
+    [self.view addSubview:_pictureView];
+    [_pictureView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(_buttomButton.mas_top).offset(10);
+        make.left.equalTo(self.view.mas_left).offset(0);
+        make.size.mas_equalTo(CGSizeMake(mas_width, 200));
+    }];
+    _pictureView.backgroundColor = [UIColor whiteColor];
+    _pictureView.tag = 22;
+    _pictureView.hidden = YES;
+    
+    UIImageView *trashImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"QQ20210401-0.jpg"]];
+    trashImage.frame = CGRectMake(0, 0, mas_width, 200);
+    [_pictureView addSubview:trashImage];
+    
 }
 //增加垃圾桶图片 到这去 刷新路径 删除点
 - (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id<BMKAnnotation>)annotation {
@@ -89,7 +113,7 @@
         return annotationView;
 }
 
-- (void)btnAction:(UIButton *)button{
+- (void)btnAction:(UIButton *)button {
     BMKRouteSearch *routeSearch = [[BMKRouteSearch alloc] init];
     routeSearch.delegate = self;
     BMKPlanNode *start = [[BMKPlanNode alloc] init];
@@ -99,23 +123,32 @@
     if (button.tag == 1) {
         end.pt = CLLocationCoordinate2DMake(34.167098, 108.9012);
         _temporaryEnd.pt = CLLocationCoordinate2DMake(34.167098, 108.9012);
+        BMKWalkingRoutePlanOption *walkingRouteSearchOption = [[BMKWalkingRoutePlanOption alloc] init];
+        walkingRouteSearchOption.from = start;
+        walkingRouteSearchOption.to = end;
+        
+        BOOL flag = [routeSearch walkingSearch:walkingRouteSearchOption];
+        if (flag) {
+            NSLog(@"步行路线规划检索发送成功");
+        } else {
+            NSLog(@"步行路线规划检索发送失败");
+        }
     }
     if (button.tag == 2) {
         end.pt = CLLocationCoordinate2DMake(34.147098, 108.9012);
         _temporaryEnd.pt = CLLocationCoordinate2DMake(34.147098, 108.9012);
+        BMKWalkingRoutePlanOption *walkingRouteSearchOption = [[BMKWalkingRoutePlanOption alloc] init];
+        walkingRouteSearchOption.from = start;
+        walkingRouteSearchOption.to = end;
+        
+        BOOL flag = [routeSearch walkingSearch:walkingRouteSearchOption];
+        if (flag) {
+            NSLog(@"步行路线规划检索发送成功");
+        } else {
+            NSLog(@"步行路线规划检索发送失败");
+        }
     }
-   
-    
-    BMKWalkingRoutePlanOption *walkingRouteSearchOption = [[BMKWalkingRoutePlanOption alloc] init];
-    walkingRouteSearchOption.from = start;
-    walkingRouteSearchOption.to = end;
-    
-    BOOL flag = [routeSearch walkingSearch:walkingRouteSearchOption];
-    if (flag) {
-        NSLog(@"步行路线规划检索发送成功");
-    } else{
-        NSLog(@"步行路线规划检索发送失败");
-    }
+        _testView.pictureButton.hidden = NO;
 }
 
 
@@ -271,12 +304,13 @@
                     make.size.mas_equalTo(CGSizeMake(mas_width, 48));
         }];
         
+        [button setImage:[UIImage imageNamed:@"xiala.png"] forState:UIControlStateNormal];
     //    button.frame = CGRectMake(0, self.view.frame.size.height - 328, self.view.frame.size.width, 48);
 
 //        [button addTarget:self action:@selector(unPressMore:) forControlEvents:UIControlEventTouchUpInside];
         
-        _testView.frame = CGRectMake(0, self.view.frame.size.height - 240 , self.view.frame.size.width, 200);
-    } else if(_didPressButton == 1) {
+        _testView.frame = CGRectMake(0, self.view.frame.size.height -  270, self.view.frame.size.width, 200);
+    } else if (_didPressButton == 1) {
         CABasicAnimation *firstDownAnima = [CABasicAnimation animationWithKeyPath:@"position"];
         firstDownAnima.fromValue = [NSValue valueWithCGPoint:CGPointMake(mas_width / 2, mas_height * 0.68)];
         firstDownAnima.toValue = [NSValue valueWithCGPoint:CGPointMake(mas_width / 2, mas_height * 0.88561)];
@@ -303,26 +337,24 @@
         [_testView.layer addAnimation:testViewDownAnima forKey:@"positionAnimation"];
         
         _testView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 200);
-        
+        [button setImage:[UIImage imageNamed:@"shouhui.png"] forState:UIControlStateNormal];
 //        [button addTarget:self action:@selector(pressMore:) forControlEvents:UIControlEventTouchUpInside];
+        if (_pictureView.hidden == NO) {
+            [self pressPicture];
+        }
     }
     _didPressButton = !_didPressButton;
 }
 
 - (void)pressPicture {
-
         if (_didSecondChange) {
             [_testView.pictureButton setTitle:@"图片" forState:UIControlStateNormal];
             //创建个view
-            UIView *pictureView = [[UIView alloc]init];
-            [pictureView mas_makeConstraints:^(MASConstraintMaker *make) {
-                            
-            }];
-            pictureView.backgroundColor = [UIColor whiteColor];
-            pictureView.tag = 22;
-            [self.view addSubview:pictureView];
+            _pictureView.hidden = YES;
+            
             } else {
                 [_testView.pictureButton setTitle:@"收起" forState:UIControlStateNormal];
+                _pictureView.hidden = NO;
 //                _viewTest.frame = CGRectMake(0, self.view.frame.size.height - 480, self.view.frame.size.width, 200);
 //                _secondView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 280, self.view.frame.size.width, 200)];
 //                _secondView.backgroundColor = [UIColor whiteColor];
@@ -333,6 +365,7 @@
 //                _secondView.contentSize = CGSizeMake(self.view.frame.size.width, 200);
 //                _secondView.showsVerticalScrollIndicator = FALSE;
 //                _secondView.showsHorizontalScrollIndicator = FALSE;
+                
         }
         _didSecondChange = !_didSecondChange;
     
@@ -340,8 +373,66 @@
 
 
 - (void)pressUpButton {
-//    NSLog(@"123");
+    UIAlertController *alertViewController = [UIAlertController alertControllerWithTitle:@"请选择方式" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+
+    UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *picture = [UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [self selectImageFromAlbum];
+}];
+    UIAlertAction *photo = [UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [self selectImageFromCamera];
+}];
+    [alertViewController addAction:cancle];
+    [alertViewController addAction:photo];
+    [alertViewController addAction:picture];
+// support iPad
+alertViewController.popoverPresentationController.sourceView = self.view;
+alertViewController.popoverPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width*0.5, self.view.bounds.size.height, 1.0, 1.0);
+    [self presentViewController:alertViewController animated:YES completion:nil];
 }
+
+- (void)selectImageFromCamera {
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+            //设置UIImagePickerController的代理，同时要遵循
+            //UIImagePickerControllerDelegate，
+            //UINavigationControllerDelegate协议
+            picker.delegate = self;
+            
+            //设置拍照之后图片是否可编辑，如果设置成可编辑的话会
+            //在代理方法返回的字典里面多一些键值。PS：
+            //如果在调用相机的时候允许照片可编辑，
+            //那么用户能编辑的照片的位置并不包括边角。
+            picker.allowsEditing = YES;
+     
+            //UIImagePicker选择器的类型，UIImagePickerControllerSourceTypeCamera调用系统相机
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+     
+            [self presentViewController:picker animated:YES completion:nil];
+            NSLog(@"拍照中");
+        } else {
+            //如果当前设备没有摄像头
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"没有摄像头" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+            [alert addAction:sureAction];
+            [self presentViewController:alert animated:NO completion:nil];
+        }
+
+}
+
+#pragma mark 从相册获取图片或视频
+- (void)selectImageFromAlbum {
+    //NSLog(@"相册");
+    _imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:_imagePickerController animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+     [picker dismissViewControllerAnimated:YES completion:^{}];
+//    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage]; //通过key值获取到图片123   
+//    _imageView.image = image;  //给UIimageView赋值已经选择的相片
+    NSLog(@"已经选择照片");
+ }
 
 - (void)pressNearlyButton {
     BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc]init];
@@ -360,15 +451,17 @@
     annotation1.subtitle = @"2";
     [_mapView addAnnotation:annotation1];
     _flag = 1;
-    _testView.pictureButton.hidden = NO;
+
 }
 
 - (void)pressDelegtWayButton {
     [self.mapView removeOverlays:self.mapView.overlays];
     [self.mapView removeAnnotations:self.mapView.annotations];
     _flag = 0;
+    [_testView.pictureButton setTitle:@"图片" forState:UIControlStateNormal];
     _testView.pictureButton.hidden = YES;
     [_mapView setZoomLevel:16];
+    _pictureView.hidden = YES;
 }
 
 - (void)pressRefreshButton {

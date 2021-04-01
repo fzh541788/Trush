@@ -54,6 +54,9 @@
 		60D62225260B2C5100759589 /* kehuxiangqing-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 60D62222260B2C5100759589 /* kehuxiangqing-2.png */; };
 		60D62226260B2C5100759589 /* kehutousu.png in Resources */ = {isa = PBXBuildFile; fileRef = 60D62223260B2C5100759589 /* kehutousu.png */; };
 		60D6222D26143C6B00759589 /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D6222C26143C6B00759589 /* TestView.m */; };
+		60D6223426149D1200759589 /* xiala.png in Resources */ = {isa = PBXBuildFile; fileRef = 60D6223326149D1200759589 /* xiala.png */; };
+		60D6223926149DD700759589 /* shouhui.png in Resources */ = {isa = PBXBuildFile; fileRef = 60D6223826149DD700759589 /* shouhui.png */; };
+		60D6223E2615F77100759589 /* QQ20210401-0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 60D6223D2615F77100759589 /* QQ20210401-0.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +152,9 @@
 		60D62223260B2C5100759589 /* kehutousu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kehutousu.png; sourceTree = "<group>"; };
 		60D6222B26143C6B00759589 /* TestView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestView.h; sourceTree = "<group>"; };
 		60D6222C26143C6B00759589 /* TestView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestView.m; sourceTree = "<group>"; };
+		60D6223326149D1200759589 /* xiala.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xiala.png; sourceTree = "<group>"; };
+		60D6223826149DD700759589 /* shouhui.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shouhui.png; sourceTree = "<group>"; };
+		60D6223D2615F77100759589 /* QQ20210401-0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "QQ20210401-0.jpg"; sourceTree = "<group>"; };
 		C518A173E0FE0E629E84BD46 /* libPods-Trush.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Trush.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECB90B9D90AD4ED02424096C /* Pods-Trush.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trush.release.xcconfig"; path = "Target Support Files/Pods-Trush/Pods-Trush.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -434,12 +440,15 @@
 				60AC0EB7259865DF00354F49 /* zengjia.png */,
 				60AC0EBC2598693300354F49 /* luxian.png */,
 				60979327258A2BB60088EFF8 /* laokang.jpeg */,
+				60D6223326149D1200759589 /* xiala.png */,
+				60D6223826149DD700759589 /* shouhui.png */,
 				60D62221260B2C5100759589 /* ditudaohang-2.png */,
 				60D62223260B2C5100759589 /* kehutousu.png */,
 				60D62222260B2C5100759589 /* kehuxiangqing-2.png */,
 				60AC0ED625986FCF00354F49 /* shuaxin.png */,
 				60AC0ECC25986DE900354F49 /* 08.png */,
 				60AC0E9C2598641A00354F49 /* tongyong_shangla.png */,
+				60D6223D2615F77100759589 /* QQ20210401-0.jpg */,
 			);
 			path = "素材图片";
 			sourceTree = "<group>";
@@ -665,14 +674,17 @@
 				60AC0ED725986FCF00354F49 /* shuaxin.png in Resources */,
 				60334C7E257657B9006CD8DD /* yuyin-2.png in Resources */,
 				60AC0E6D2590CF8100354F49 /* Guide1.png in Resources */,
+				60D6223926149DD700759589 /* shouhui.png in Resources */,
 				60D62226260B2C5100759589 /* kehutousu.png in Resources */,
 				60AC0E9D2598641A00354F49 /* tongyong_shangla.png in Resources */,
+				60D6223E2615F77100759589 /* QQ20210401-0.jpg in Resources */,
 				60D62225260B2C5100759589 /* kehuxiangqing-2.png in Resources */,
 				60334BDE256E80ED006CD8DD /* Assets.xcassets in Resources */,
 				60334BDC256E80EB006CD8DD /* Main.storyboard in Resources */,
 				60AC0EBD2598693300354F49 /* luxian.png in Resources */,
 				60334C782575359A006CD8DD /* shumajiadian.png in Resources */,
 				60AC0E6E2590CF8100354F49 /* Guide2.png in Resources */,
+				60D6223426149D1200759589 /* xiala.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

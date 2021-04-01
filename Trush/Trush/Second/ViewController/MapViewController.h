@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIButton *buttomButton;
 //@property (nonatomic, strong) UIScrollView *viewTest;
 //@property (nonatomic, strong) UIScrollView *secondView;
-
+@property (nonatomic, strong) UIImagePickerController *imagePickerController;
 
 @property (nonatomic, assign) CGFloat locationOne;
 @property (nonatomic, assign) CGFloat locationTwo;

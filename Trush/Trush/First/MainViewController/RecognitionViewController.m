@@ -50,7 +50,6 @@
     self.firstView.searchTextField.delegate = self;
     
     _testName = [[NSString alloc]init];
-
     UIImage *tabBarImage = [UIImage imageNamed:@"daijianding.png"];
     UITabBarItem *firstTabBarItem = [[UITabBarItem alloc]initWithTitle:@"识别" image:tabBarImage tag:2];
     firstTabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, 0, 0);

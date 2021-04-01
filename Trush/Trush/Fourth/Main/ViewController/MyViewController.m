@@ -43,7 +43,7 @@
 //    点击“我的”tab，客户端就去请求后台接口，上传用户id，后台计算出当前用户搜索物品的各个垃圾分类所占的百分比，客户端展现出来。
     AnalyseViewController *analyseViewController = [[AnalyseViewController alloc]init];
     [self.navigationController pushViewController:analyseViewController animated:NO];
-    analyseViewController.pieDataArray = [[NSArray alloc]initWithObjects:@"100",@"200",@"300",nil];
+    analyseViewController.pieDataArray = [[NSArray alloc]initWithObjects:@"100",@"200",@"300",@"150",nil];
     
 }
 

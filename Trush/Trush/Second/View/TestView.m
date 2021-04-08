@@ -57,7 +57,7 @@
     
     _pictureButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [_pictureButton setTitle:@"图片" forState:UIControlStateNormal];
-    _pictureButton.frame = CGRectMake(170, 150, 80, 20);
+    _pictureButton.frame = CGRectMake(170, 140, 80, 20);
     [self addSubview:_pictureButton];
     _pictureButton.hidden = YES;
     

@@ -228,6 +228,14 @@
         [self presentViewController:alert animated:NO completion:nil];
          return ;
        }
+    
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    [audioSession setActive:YES error:nil];
+    if ([audioSession respondsToSelector:@selector(requestRecordPermission:)]) {
+        [audioSession performSelector:@selector(requestRecordPermission:) withObject:^(BOOL granted) {
+if (granted) {
+// Microphone enabled code
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"开始录音，再次点击按钮结束录音" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         //  URL是本地的URL AVAudioRecorder需要一个存储的路径
@@ -254,10 +262,14 @@
          */
         NSLog(@ "%@" ,self->_path);
     }];
-        [alert addAction:sureAction];
-        [self presentViewController:alert animated:NO completion:nil];
-
+    [alert addAction:sureAction];
+    [self presentViewController:alert animated:NO completion:nil];
+    }
+}];
+    }
+        
 }
+
 - (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:( BOOL )flag{
    NSLog(@ "录音结束" );
 
@@ -306,7 +318,11 @@
         }
         }
     }];
-    
 }
+
+/*
+  12-23 update: use removeItemAtPath to delete each subdir
+  instead of delete the root dir and then recreate it
+*/
 
 @end

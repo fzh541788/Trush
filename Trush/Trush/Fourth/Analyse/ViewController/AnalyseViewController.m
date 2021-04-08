@@ -21,6 +21,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
     _analyseView = [[AnalyseView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) andDataArray:self.pieDataArray];
+    _analyseView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_analyseView];
 }
 

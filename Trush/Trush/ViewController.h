@@ -9,6 +9,8 @@
 #import "FMDB.h"
 @interface ViewController : UIViewController
 
+@property (nonatomic, strong) UIImageView *logoImageView;
+
 @property (nonatomic, strong) UITextField *enterTextFiled;
 @property (nonatomic, strong) UITextField *registerTextFiled;
 

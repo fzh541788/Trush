@@ -15,7 +15,10 @@
 #import "ResultViewController.h"
 #import "Manage.h"
 #import <Speech/Speech.h>
- 
+#import "WetViewController.h"
+#import "DryViewController.h"
+#import "CycleViewController.h"
+#import "HarmfulViewController.h"
 
 @interface RecognitionViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate,UITextFieldDelegate,AVAudioRecorderDelegate,SFSpeechRecognizerDelegate>
 @property (nonatomic, strong)FirstView *firstView;
@@ -36,7 +39,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     _secondView = [[ResultViewController alloc]init];
-    // Do any additional setup after loading the view.
+    // Do any additional setup aftera loading the view.
     _firstView = [[FirstView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [self.view addSubview:_firstView];
     [_firstView.pictureButton addTarget:self action:@selector(pressPhoto) forControlEvents:UIControlEventTouchUpInside];
@@ -55,7 +58,11 @@
     firstTabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, 0, 0);
     [firstTabBarItem setTitlePositionAdjustment:UIOffsetMake(0, 10)];
     self.tabBarItem = firstTabBarItem;
-
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickDry) name:@"clickDry" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickWet) name:@"clickWet" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickHarmful) name:@"clickHarmful" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickCycle) name:@"clickCycle" object:nil];
     
 }
 
@@ -320,6 +327,30 @@ if (granted) {
     }];
 }
 
+- (void)clickCycle {
+    NSLog(@"cycle");
+    CycleViewController *viewController = [[CycleViewController alloc]init];
+    [self presentViewController:viewController animated:YES completion:nil];
+}
+
+- (void)clickWet {
+//    NSLog(@"wet");
+    WetViewController *viewController = [[WetViewController alloc]init];
+//    viewController.modalPresentationStyle = UIModalPresentationFullScreen;
+//    [self dismissViewControllerAnimated:YES completion:nil];
+    [self presentViewController:viewController animated:YES completion:nil];
+}
+
+- (void)clickHarmful {
+    HarmfulViewController *viewController = [[HarmfulViewController alloc]init];
+    [self presentViewController:viewController animated:YES completion:nil];
+}
+
+- (void)clickDry {
+    
+    DryViewController *viewController = [[DryViewController alloc]init];
+    [self presentViewController:viewController animated:YES completion:nil];
+}
 /*
   12-23 update: use removeItemAtPath to delete each subdir
   instead of delete the root dir and then recreate it

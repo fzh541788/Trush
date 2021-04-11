@@ -10,6 +10,7 @@
 #import "MapViewController.h"
 #import "GuideViewController.h"
 #import "MyViewController.h"
+#import "Masonry.h"
 #import "RegisterViewController.h"
 //把数据库的操作全部转化成 后台的操作
 @interface ViewController ()
@@ -26,39 +27,83 @@
     self.path = fileName;
     
     //加个判断数据库是否存在，即是否添加过对象 如果没有的话 弹出下面界面 否则进入界面
-    _enterTextFiled = [[UITextField alloc]initWithFrame:CGRectMake(10, 200, self.view.frame.size.width - 20, 80)];
-    _enterTextFiled.placeholder = @"   请输入账号";
-    _enterTextFiled.font = [UIFont systemFontOfSize:20];
-    _enterTextFiled.layer.borderWidth = 1;
+    _logoImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"logo.png"]];
+    [self.view addSubview:_logoImageView];
+    [_logoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.view.mas_left).offset(150);
+            make.bottom.equalTo(self.view.mas_top).offset(215);
+            make.size.mas_equalTo(CGSizeMake(128,128));
+    }];
     
-    _registerTextFiled = [[UITextField alloc]initWithFrame:CGRectMake(10, 300, self.view.frame.size.width - 20, 80)];
-    _registerTextFiled.placeholder = @"   请输入密码";
-    _registerTextFiled.font = [UIFont systemFontOfSize:20];
-    _registerTextFiled.layer.borderWidth = 1;
+    _enterTextFiled = [[UITextField alloc]init];
+    _enterTextFiled.backgroundColor = [UIColor colorWithRed:242/255 green:243/255 blue:246/255 alpha:0.1];
+//    _enterTextFiled.layer.borderWidth = 0f;
+    _enterTextFiled.layer.cornerRadius = 25.0f;
     [self.view addSubview:_enterTextFiled];
+    [_enterTextFiled mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.view.mas_left).offset(50);
+            make.bottom.equalTo(self.view.mas_top).offset(295);
+            make.size.mas_equalTo(CGSizeMake(340,50));
+    }];
+    _enterTextFiled.textAlignment = NSTextAlignmentCenter;
+    _enterTextFiled.placeholder = @"请输入账号";
+    
+    _registerTextFiled = [[UITextField alloc]init];
+    _registerTextFiled.backgroundColor = [UIColor colorWithRed:242/255 green:243/255 blue:246/255 alpha:0.1];
+    _registerTextFiled.layer.borderColor = [[UIColor blackColor] CGColor];
+//    _registerTextFiled.layer.borderWidth = 0.8f;
+    _registerTextFiled.layer.cornerRadius = 25.0f;
     [self.view addSubview:_registerTextFiled];
+    [_registerTextFiled mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.view.mas_left).offset(50);
+            make.bottom.equalTo(self.view.mas_top).offset(365);
+            make.size.mas_equalTo(CGSizeMake(340,50));
+    }];
+    _registerTextFiled.textAlignment = NSTextAlignmentCenter;
+    _registerTextFiled.placeholder = @"请输入密码";
+    _registerTextFiled.secureTextEntry = YES;
     
     
-    _enterButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    _enterButton.frame = CGRectMake(120, 400, 50, 50);
-    [_enterButton setTitle:@"登录" forState:UIControlStateNormal];
+    _enterButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.view addSubview:_enterButton];
+    [_enterButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.view.mas_left).offset(150);
+            make.bottom.equalTo(self.view.mas_top).offset(520);
+            make.size.mas_equalTo(CGSizeMake(128,128));
+    }];
+//    _enterButton.frame = CGRectMake(120, 400, 128, 128);
+    [_enterButton setImage:[UIImage imageNamed:@"denglu-3.png"] forState:UIControlStateNormal];
+//    [_enterButton setTitle:@"登录" forState:UIControlStateNormal];
     _enterButton.titleLabel.font = [UIFont systemFontOfSize:20];
     [_enterButton addTarget:self action:@selector(pressLogin) forControlEvents:UIControlEventTouchUpInside];
     
+    
     _registerButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    _registerButton.frame = CGRectMake(260, 400, 50, 50);
-    [_registerButton setTitle:@"注册" forState:UIControlStateNormal];
-    _registerButton.titleLabel.font = [UIFont systemFontOfSize:20];
-    [_registerButton addTarget:self action:@selector(pressRegister) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_enterButton];
     [self.view addSubview:_registerButton];
+    [_registerButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.view.mas_right).offset(-150);
+            make.bottom.equalTo(self.view.mas_bottom).offset(-50);
+            make.size.mas_equalTo(CGSizeMake(100,100));
+    }];
+//    _registerButton.frame = CGRectMake(260, 400, 50, 50);
+    [_registerButton setTitle:@"新用户注册" forState:UIControlStateNormal];
+    _registerButton.titleLabel.font = [UIFont systemFontOfSize:15];
+    [_registerButton addTarget:self action:@selector(pressRegister) forControlEvents:UIControlEventTouchUpInside];
+
+
     
     _messageButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [_messageButton setTitle:@"用短信验证码登录" forState:UIControlStateNormal];
-    _messageButton.frame = CGRectMake(25, 800, 380, 50);
-    _messageButton.titleLabel.font = [UIFont systemFontOfSize:18];
-    [_messageButton addTarget:self action:@selector(pressMessageButton) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_messageButton];
+    [_messageButton setTitle:@"手机号登录" forState:UIControlStateNormal];
+    [_messageButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.view.mas_left).offset(50);
+            make.bottom.equalTo(self.view.mas_bottom).offset(-50);
+            make.size.mas_equalTo(CGSizeMake(100,100));
+    }];
+//    _messageButton.frame = CGRectMake(25, 800, 380, 50);
+    _messageButton.titleLabel.font = [UIFont systemFontOfSize:15];
+    [_messageButton addTarget:self action:@selector(pressMessageButton) forControlEvents:UIControlEventTouchUpInside];
+
     
 //qq、微信登录    
 //如果是这两个登录的话，客户端需要将qqId发给后台，后台返回是否需要绑定手机号（不需要就返回个人信息，需要就跳转到绑定手机号页面

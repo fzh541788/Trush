@@ -9,7 +9,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FirstView : UIView
+@interface FirstView : UIView<UITableViewDelegate,UITableViewDataSource>
+
+@property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, strong) UIButton *pictureButton;
 @property (nonatomic, strong) UIButton *voiceButton;

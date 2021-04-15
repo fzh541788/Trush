@@ -5,4 +5,5 @@ pod 'BMKLocationKit'
 pod 'Masonry'
 pod 'FMDB'
 pod 'JSONModel'
+pod 'AFNetworking'
 end      

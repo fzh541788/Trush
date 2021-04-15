@@ -49,7 +49,7 @@
            cell = [[FourthSonTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
        }
     if (indexPath.row == 0) {
-        cell.headImage.image = [UIImage imageNamed:@"laokang.jpeg"];
+        cell.headImage.image = [UIImage imageNamed:@"logo.png"];
         cell.headTitileLabel.text = @"复杂化";
         //这个image应该是从后台获取不同的头像及id姓名
     } else if (indexPath.row == 1) {

@@ -6,6 +6,8 @@
 //
 
 #import "Manage.h"
+#import "AFNetworking.h"
+
 static Manage *manager = nil;
 @implementation Manage
 
@@ -85,4 +87,24 @@ static Manage *manager = nil;
     [task resume];
 }
 
+- (void)loginNetWork:(NSString *)phoneNumber andPassword:(NSString *)password and:(LoginSucceedBlock)loginSucceedBlock error:(ErrorBlock)errorBlock {
+//    NSLog(@"%@,%@",phoneNumber,password);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        [manager.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+        NSString *url = @"http://116.62.21.180:8086/user/login.do";
+        NSDictionary *parameters = @{@"phoneNumber":phoneNumber,
+                                     @"password":password};
+    [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        NSLog(@"%@",responseObject);
+            LoginModel *model = [[LoginModel alloc] initWithDictionary:responseObject error:nil];
+//        NSLog(@"%d", model.status);
+            loginSucceedBlock(model);
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
+            NSLog(@"请求失败%@", error);
+            errorBlock(error);
+        }];
+       
+    
+}
 @end

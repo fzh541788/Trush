@@ -7,9 +7,13 @@
 
 #import "RegisterViewController.h"
 #import "ViewController.h"
+#import "Masonry.h"
+#import "RegisterView.h"
+#import "RegisterModel.h"
+#import "AFNetworking.h"
 
 @interface RegisterViewController ()
-
+@property (nonatomic, strong) RegisterView *registerView;
 @end
 
 @implementation RegisterViewController
@@ -17,33 +21,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor whiteColor];
-    _enterTextFiled = [[UITextField alloc]initWithFrame:CGRectMake(10, 200, self.view.frame.size.width - 20, 80)];
-    _enterTextFiled.placeholder = @"   请输入账号";
-    _enterTextFiled.font = [UIFont systemFontOfSize:20];
-    _enterTextFiled.layer.borderWidth = 1;
-    
-    _registerTextFiled = [[UITextField alloc]initWithFrame:CGRectMake(10, 300, self.view.frame.size.width - 20, 80)];
-    _registerTextFiled.placeholder = @"   请输入密码";
-    _registerTextFiled.font = [UIFont systemFontOfSize:20];
-    _registerTextFiled.layer.borderWidth = 1;
-    [self.view addSubview:_enterTextFiled];
-    [self.view addSubview:_registerTextFiled];
-    
-    _returnButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    _returnButton.frame = CGRectMake(180, 500, 50, 50);
-    [_returnButton setTitle:@"登录" forState:UIControlStateNormal];
-    _returnButton.titleLabel.font = [UIFont systemFontOfSize:20];
-    [_returnButton addTarget:self action:@selector(pressReturnButton) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_returnButton];
-    
-    _backButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [_backButton setTitle:@"<" forState:UIControlStateNormal];
-    [_backButton addTarget:self action:@selector(pressBackButton) forControlEvents:UIControlEventTouchUpInside];
-    _backButton.titleLabel.font = [UIFont systemFontOfSize:50];
-    _backButton.frame = CGRectMake(20, 80, 50, 50);
-    [self.view addSubview:_backButton];
-    
+    _registerView = [[RegisterView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [self.view addSubview:_registerView];
+    _registerView.backgroundColor = [UIColor whiteColor];
+    [_registerView.returnButton addTarget:self action:@selector(pressReturnButton) forControlEvents:UIControlEventTouchUpInside];
+    [_registerView.backButton addTarget:self action:@selector(pressBackButton) forControlEvents:UIControlEventTouchUpInside];
     NSString *doc=[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     NSString *fileName=[doc stringByAppendingPathComponent:@"NameAndPass.sqlite"];
     self.path = fileName;
@@ -63,12 +45,12 @@
 }
 
 - (void)pressReturnButton {
-    if (_enterTextFiled.text == NULL && _registerTextFiled.text == NULL) {
+    if (_registerView.enterTextFiled.text == NULL && _registerView.registerTextFiled.text == NULL) {
         NSLog(@"弹窗 失败");
     } else {
         FMDatabase *dataBase = [FMDatabase databaseWithPath:self.path];
         if ([dataBase open]) {
-        BOOL res = [self.dataBase executeUpdate:@"INSERT INTO t_agreeOrder (name, pass) VALUES (?,?);",_enterTextFiled.text,_registerTextFiled.text];
+        BOOL res = [self.dataBase executeUpdate:@"INSERT INTO t_agreeOrder (name, pass) VALUES (?,?);",_registerView.enterTextFiled.text,_registerView.registerTextFiled.text];
         if (!res) {
             NSLog(@"增加数据失败!");
         } else {
@@ -83,6 +65,7 @@
 - (void)pressBackButton {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
 }

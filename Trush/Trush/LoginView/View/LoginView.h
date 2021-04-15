@@ -1,13 +1,15 @@
 //
-//  ViewController.h
+//  LoginView.h
 //  Trush
 //
-//  Created by young_jerry on 2020/11/25.
+//  Created by young_jerry on 2021/4/15.
 //
 
 #import <UIKit/UIKit.h>
-#import "FMDB.h"
-@interface ViewController : UIViewController
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface LoginView : UIView
 
 @property (nonatomic, strong) UIImageView *logoImageView;
 
@@ -20,11 +22,6 @@
 @property (nonatomic, strong) UIButton *qqButton;
 @property (nonatomic, strong) UIButton *wechatButton;
 
-@property (nonatomic, strong) NSMutableArray *testName;
-@property (nonatomic, strong) NSMutableArray *passName;
-
-@property (nonatomic, copy) NSString *path;
-//@property (nonatomic, strong) FMDatabase *dataBase;
-
 @end
 
+NS_ASSUME_NONNULL_END

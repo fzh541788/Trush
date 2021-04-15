@@ -351,9 +351,5 @@ if (granted) {
     DryViewController *viewController = [[DryViewController alloc]init];
     [self presentViewController:viewController animated:YES completion:nil];
 }
-/*
-  12-23 update: use removeItemAtPath to delete each subdir
-  instead of delete the root dir and then recreate it
-*/
 
 @end

@@ -121,8 +121,8 @@
     BMKPlanNode *end = [[BMKPlanNode alloc] init];
     _temporaryEnd = [[BMKPlanNode alloc]init];
     if (button.tag == 1) {
-        end.pt = CLLocationCoordinate2DMake(34.167098, 108.9012);
-        _temporaryEnd.pt = CLLocationCoordinate2DMake(34.167098, 108.9012);
+        end.pt = CLLocationCoordinate2DMake(39.909605, 116.410000);
+        _temporaryEnd.pt = CLLocationCoordinate2DMake(39.909605, 116.410000);
         BMKWalkingRoutePlanOption *walkingRouteSearchOption = [[BMKWalkingRoutePlanOption alloc] init];
         walkingRouteSearchOption.from = start;
         walkingRouteSearchOption.to = end;
@@ -135,8 +135,8 @@
         }
     }
     if (button.tag == 2) {
-        end.pt = CLLocationCoordinate2DMake(34.147098, 108.9012);
-        _temporaryEnd.pt = CLLocationCoordinate2DMake(34.147098, 108.9012);
+        end.pt = CLLocationCoordinate2DMake(39.919605, 116.410000);
+        _temporaryEnd.pt = CLLocationCoordinate2DMake(39.919605, 116.410000);
         BMKWalkingRoutePlanOption *walkingRouteSearchOption = [[BMKWalkingRoutePlanOption alloc] init];
         walkingRouteSearchOption.from = start;
         walkingRouteSearchOption.to = end;
@@ -436,7 +436,7 @@ alertViewController.popoverPresentationController.sourceRect = CGRectMake(self.v
 
 - (void)pressNearlyButton {
     BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc]init];
-    annotation.coordinate = CLLocationCoordinate2DMake(34.167098, 108.9012);
+    annotation.coordinate = CLLocationCoordinate2DMake(39.909605, 116.410000);
     //设置标注的标题
     annotation.title = @"垃圾桶";
     //副标题
@@ -444,7 +444,7 @@ alertViewController.popoverPresentationController.sourceRect = CGRectMake(self.v
     [_mapView addAnnotation:annotation];
     
     BMKPointAnnotation* annotation1 = [[BMKPointAnnotation alloc]init];
-    annotation1.coordinate = CLLocationCoordinate2DMake(34.147098, 108.9012);
+    annotation1.coordinate = CLLocationCoordinate2DMake(39.919605, 116.410000);
     //设置标注的标题
     annotation1.title = @"垃圾桶";
     //副标题

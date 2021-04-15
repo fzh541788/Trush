@@ -55,6 +55,10 @@
 		6083DF042622E2EA006420A4 /* dry.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 6083DF032622E2EA006420A4 /* dry.jpeg */; };
 		6083DF0C2622E39E006420A4 /* harmful.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 6083DF0B2622E39E006420A4 /* harmful.jpeg */; };
 		6083DF142622E4C9006420A4 /* cycle.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 6083DF132622E4C9006420A4 /* cycle.jpeg */; };
+		6083DFF72627091D006420A4 /* RegisterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6083DFF62627091D006420A4 /* RegisterModel.m */; };
+		6083DFFD26270AB4006420A4 /* RegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6083DFFC26270AB4006420A4 /* RegisterView.m */; };
+		6083E011262855EA006420A4 /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6083E010262855EA006420A4 /* LoginView.m */; };
+		6083E0232628561B006420A4 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6083E0222628561B006420A4 /* LoginModel.m */; };
 		60979328258A2BB60088EFF8 /* laokang.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 60979327258A2BB60088EFF8 /* laokang.jpeg */; };
 		6097933A258A363D0088EFF8 /* AnalyseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60979339258A363D0088EFF8 /* AnalyseViewController.m */; };
 		60979340258A36570088EFF8 /* AnalyseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6097933F258A36570088EFF8 /* AnalyseView.m */; };
@@ -172,6 +176,14 @@
 		6083DF032622E2EA006420A4 /* dry.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dry.jpeg; sourceTree = "<group>"; };
 		6083DF0B2622E39E006420A4 /* harmful.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = harmful.jpeg; sourceTree = "<group>"; };
 		6083DF132622E4C9006420A4 /* cycle.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cycle.jpeg; sourceTree = "<group>"; };
+		6083DFF52627091D006420A4 /* RegisterModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterModel.h; sourceTree = "<group>"; };
+		6083DFF62627091D006420A4 /* RegisterModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterModel.m; sourceTree = "<group>"; };
+		6083DFFB26270AB4006420A4 /* RegisterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterView.h; sourceTree = "<group>"; };
+		6083DFFC26270AB4006420A4 /* RegisterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterView.m; sourceTree = "<group>"; };
+		6083E00F262855EA006420A4 /* LoginView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginView.h; sourceTree = "<group>"; };
+		6083E010262855EA006420A4 /* LoginView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginView.m; sourceTree = "<group>"; };
+		6083E0212628561B006420A4 /* LoginModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginModel.h; sourceTree = "<group>"; };
+		6083E0222628561B006420A4 /* LoginModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
 		60979327258A2BB60088EFF8 /* laokang.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = laokang.jpeg; sourceTree = "<group>"; };
 		60979338258A363D0088EFF8 /* AnalyseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalyseViewController.h; sourceTree = "<group>"; };
 		60979339258A363D0088EFF8 /* AnalyseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnalyseViewController.m; sourceTree = "<group>"; };
@@ -224,13 +236,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		601D993B25B9B2F400F9E5CC /* result */ = {
+		601D993B25B9B2F400F9E5CC /* resultView */ = {
 			isa = PBXGroup;
 			children = (
 				601D993C25B9B33C00F9E5CC /* ResultViewController.h */,
 				601D993D25B9B33C00F9E5CC /* ResultViewController.m */,
 			);
-			path = result;
+			path = resultView;
 			sourceTree = "<group>";
 		};
 		602D27BC2587A3E700BC6432 /* ManageViewController */ = {
@@ -290,10 +302,8 @@
 				60334BD2256E80EB006CD8DD /* AppDelegate.m */,
 				60334BD4256E80EB006CD8DD /* SceneDelegate.h */,
 				60334BD5256E80EB006CD8DD /* SceneDelegate.m */,
-				60334BD7256E80EB006CD8DD /* ViewController.h */,
-				60334BD8256E80EB006CD8DD /* ViewController.m */,
-				602D27A2257E61B200BC6432 /* RegisterViewController.h */,
-				602D27A3257E61B200BC6432 /* RegisterViewController.m */,
+				6083E00B26285591006420A4 /* LoginView */,
+				6083DFF12627086C006420A4 /* Register */,
 				6062A9882598AFA500326B9C /* Manage.h */,
 				6062A9892598AFA500326B9C /* Manage.m */,
 				60334C14256E81D9006CD8DD /* First */,
@@ -361,13 +371,8 @@
 			isa = PBXGroup;
 			children = (
 				6083DED92622DE12006420A4 /* DetailView */,
-				60334C1A256E8218006CD8DD /* MainModel */,
-				60334C19256E8216006CD8DD /* MainView */,
-				60334C18256E8213006CD8DD /* MainViewController */,
-				60334CA32577CEA5006CD8DD /* SearchModel */,
-				60334C992577CCEF006CD8DD /* SearchVIew */,
-				60334C972577CCCA006CD8DD /* SearchViewController */,
-				601D993B25B9B2F400F9E5CC /* result */,
+				6083E0272628597C006420A4 /* Main */,
+				6083E0282628599C006420A4 /* Search */,
 			);
 			path = First;
 			sourceTree = "<group>";
@@ -554,6 +559,101 @@
 				6083DEED2622DECD006420A4 /* HarmfulViewController.m */,
 			);
 			path = DetailView;
+			sourceTree = "<group>";
+		};
+		6083DFF12627086C006420A4 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				6083DFF4262708B9006420A4 /* Model */,
+				6083DFF3262708B7006420A4 /* View */,
+				6083DFF2262708B3006420A4 /* View Controller */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		6083DFF2262708B3006420A4 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				602D27A2257E61B200BC6432 /* RegisterViewController.h */,
+				602D27A3257E61B200BC6432 /* RegisterViewController.m */,
+			);
+			path = "View Controller";
+			sourceTree = "<group>";
+		};
+		6083DFF3262708B7006420A4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6083DFFB26270AB4006420A4 /* RegisterView.h */,
+				6083DFFC26270AB4006420A4 /* RegisterView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6083DFF4262708B9006420A4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6083DFF52627091D006420A4 /* RegisterModel.h */,
+				6083DFF62627091D006420A4 /* RegisterModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6083E00B26285591006420A4 /* LoginView */ = {
+			isa = PBXGroup;
+			children = (
+				6083E00E262855B2006420A4 /* Model */,
+				6083E00D262855AF006420A4 /* View */,
+				6083E00C262855AC006420A4 /* View Controller */,
+			);
+			path = LoginView;
+			sourceTree = "<group>";
+		};
+		6083E00C262855AC006420A4 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				60334BD7256E80EB006CD8DD /* ViewController.h */,
+				60334BD8256E80EB006CD8DD /* ViewController.m */,
+			);
+			path = "View Controller";
+			sourceTree = "<group>";
+		};
+		6083E00D262855AF006420A4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6083E00F262855EA006420A4 /* LoginView.h */,
+				6083E010262855EA006420A4 /* LoginView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6083E00E262855B2006420A4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6083E0212628561B006420A4 /* LoginModel.h */,
+				6083E0222628561B006420A4 /* LoginModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6083E0272628597C006420A4 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				60334C1A256E8218006CD8DD /* MainModel */,
+				60334C19256E8216006CD8DD /* MainView */,
+				60334C18256E8213006CD8DD /* MainViewController */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		6083E0282628599C006420A4 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				601D993B25B9B2F400F9E5CC /* resultView */,
+				60334CA32577CEA5006CD8DD /* SearchModel */,
+				60334C992577CCEF006CD8DD /* SearchVIew */,
+				60334C972577CCCA006CD8DD /* SearchViewController */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		6097932C258A35210088EFF8 /* Main */ = {
@@ -846,9 +946,11 @@
 				60334BD3256E80EB006CD8DD /* AppDelegate.m in Sources */,
 				602D27B52587852C00BC6432 /* FourthSonTableViewCell.m in Sources */,
 				60334BE4256E80ED006CD8DD /* main.m in Sources */,
+				6083E0232628561B006420A4 /* LoginModel.m in Sources */,
 				6083DEE22622DEB0006420A4 /* DryViewController.m in Sources */,
 				6062A98A2598AFA500326B9C /* Manage.m in Sources */,
 				601D994C25C1A4E500F9E5CC /* TextModel.m in Sources */,
+				6083DFFD26270AB4006420A4 /* RegisterView.m in Sources */,
 				60334C32256E8384006CD8DD /* MapViewController.mm in Sources */,
 				6083DEDC2622DE70006420A4 /* WetViewController.m in Sources */,
 				60D6222D26143C6B00759589 /* TestView.m in Sources */,
@@ -856,6 +958,8 @@
 				60334C5D25752717006CD8DD /* FirstView.m in Sources */,
 				6083DEEE2622DECD006420A4 /* HarmfulViewController.m in Sources */,
 				602D27CA2587A44800BC6432 /* ManageView.m in Sources */,
+				6083DFF72627091D006420A4 /* RegisterModel.m in Sources */,
+				6083E011262855EA006420A4 /* LoginView.m in Sources */,
 				602D27A4257E61B200BC6432 /* RegisterViewController.m in Sources */,
 				60334BD6256E80EB006CD8DD /* SceneDelegate.m in Sources */,
 				602D2798257E573C00BC6432 /* FourthView.m in Sources */,

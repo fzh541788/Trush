@@ -97,10 +97,10 @@
                 lblMark.text = [NSString stringWithFormat:@"%@:%@%@",self.pieDataNameArray[i],self.pieDataArray[i],self.pieDataUnit];
             }
         }
-//        if (!self.pieDataUnit) {
-//            self.pieDataUnit = @"";
-//        }
-//        lblMark.text = [NSString stringWithFormat:@"%@:%@%@",self.legendNameArray[i],self.pieDataArray[i],self.pieDataUnit];
+        //        if (!self.pieDataUnit) {
+        //            self.pieDataUnit = @"";
+        //        }
+        //        lblMark.text = [NSString stringWithFormat:@"%@:%@%@",self.legendNameArray[i],self.pieDataArray[i],self.pieDataUnit];
         [lblMark sizeToFit];
         [self addSubview:lblMark];
         if (cosf(angle * M_PI / 180) >= -0.01) { // 偏右侧
@@ -113,30 +113,30 @@
     }
     
     CGFloat startAngle = -M_PI_2;
-        for (int i = 0; i < self.pieDataArray.count; i++) {
-            NSString *num = self.pieDataArray[i];
-            UIBezierPath *path = [UIBezierPath bezierPath];
-            [path addArcWithCenter:CGPointMake(pieView.bounds.size.width / 2, pieView.bounds.size.height / 2) radius:radius startAngle:startAngle endAngle:startAngle + [num floatValue] / total * M_PI * 2 clockwise:YES];
-            //        path.lineWidth = 10;// 线宽与半径相同
-            [path addLineToPoint:CGPointMake(pieView.bounds.size.width / 2, pieView.bounds.size.height / 2)];// 圆心
-            [[self colorWithHexString:self.colorArray[i]] setStroke];
-            [[self colorWithHexString:self.colorArray[i]] setFill];
-            [path stroke];
-            [path fill];
-            
-            CAShapeLayer *layer = [CAShapeLayer layer];
-            layer.path = path.CGPath;
-    //        layer.lineWidth = 30;
-            layer.strokeColor = [UIColor whiteColor].CGColor; // 描边颜色
-            layer.fillColor = [self colorWithHexString:self.colorArray[i]].CGColor; // 背景填充色
-            [pieView.layer addSublayer:layer];
-            //通过这句话计算
-            startAngle = startAngle + [num floatValue] / total * M_PI * 2 ;
-        }
+    for (int i = 0; i < self.pieDataArray.count; i++) {
+        NSString *num = self.pieDataArray[i];
+        UIBezierPath *path = [UIBezierPath bezierPath];
+        [path addArcWithCenter:CGPointMake(pieView.bounds.size.width / 2, pieView.bounds.size.height / 2) radius:radius startAngle:startAngle endAngle:startAngle + [num floatValue] / total * M_PI * 2 clockwise:YES];
+        //        path.lineWidth = 10;// 线宽与半径相同
+        [path addLineToPoint:CGPointMake(pieView.bounds.size.width / 2, pieView.bounds.size.height / 2)];// 圆心
+        [[self colorWithHexString:self.colorArray[i]] setStroke];
+        [[self colorWithHexString:self.colorArray[i]] setFill];
+        [path stroke];
+        [path fill];
+        
+        CAShapeLayer *layer = [CAShapeLayer layer];
+        layer.path = path.CGPath;
+        //        layer.lineWidth = 30;
+        layer.strokeColor = [UIColor whiteColor].CGColor; // 描边颜色
+        layer.fillColor = [self colorWithHexString:self.colorArray[i]].CGColor; // 背景填充色
+        [pieView.layer addSublayer:layer];
+        //通过这句话计算
+        startAngle = startAngle + [num floatValue] / total * M_PI * 2 ;
+    }
     
     pieView.layer.mask = bgLayer;
     
-//     动画
+    //     动画
     CABasicAnimation *strokeAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
     strokeAnimation.fromValue = @0;// 起始值
     strokeAnimation.toValue = @1;// 结束值
@@ -210,11 +210,11 @@
 
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect {
+ // Drawing code
+ }
+ */
 
 @end

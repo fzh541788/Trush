@@ -11,10 +11,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RegisterView : UIView
 
-@property (nonatomic, strong) UITextField *enterTextFiled;
-@property (nonatomic, strong) UITextField *registerTextFiled;
+@property (nonatomic, strong) UITextField *enterTextField;
+@property (nonatomic, strong) UITextField *registerTextField;
 
-@property (nonatomic, strong) UIButton *returnButton;
+@property (nonatomic, strong) UIButton *sureButton;
 @property (nonatomic, strong) UIButton *backButton;
 
 @end

@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UITextField *searchTextField;
 @property (nonatomic, strong) UIButton *searchButton;
 
+@property (nonatomic, strong) NSMutableArray *tempArray;
+
 @end
 
 NS_ASSUME_NONNULL_END

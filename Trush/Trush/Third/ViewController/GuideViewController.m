@@ -15,7 +15,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.view.backgroundColor = [UIColor whiteColor];
+    //    self.view.backgroundColor = [UIColor whiteColor];
     UIImage *tabBarImage = [UIImage imageNamed:@"kehutousu.png"];
     UITabBarItem *thirdTabBarItem = [[UITabBarItem alloc]initWithTitle:@"指南" image:tabBarImage tag:4];
     thirdTabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, 0, 0);
@@ -28,7 +28,7 @@
     [self.view addSubview:_scrollerView];
     _scrollerView.pagingEnabled = NO;
     _scrollerView.delegate = self;
-
+    
     _firstImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Guide1.png"]];
     _firstImageView.frame = CGRectMake(5, 5, self.view.frame.size.width - 10, self.view.frame.size.height);
     [_scrollerView addSubview:_firstImageView];
@@ -40,13 +40,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

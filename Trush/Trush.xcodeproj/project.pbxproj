@@ -59,6 +59,13 @@
 		6083DFFD26270AB4006420A4 /* RegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6083DFFC26270AB4006420A4 /* RegisterView.m */; };
 		6083E011262855EA006420A4 /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6083E010262855EA006420A4 /* LoginView.m */; };
 		6083E0232628561B006420A4 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6083E0222628561B006420A4 /* LoginModel.m */; };
+		6083E04F262C04BD006420A4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60334BD8256E80EB006CD8DD /* ViewController.m */; };
+		6083E060262C0E19006420A4 /* PhoneNumberModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6083E05F262C0E19006420A4 /* PhoneNumberModel.m */; };
+		6083E069262C0E2B006420A4 /* PhoneNumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6083E068262C0E2B006420A4 /* PhoneNumberView.m */; };
+		6083E06F262C0E3B006420A4 /* PhoneNumberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6083E06E262C0E3B006420A4 /* PhoneNumberViewController.m */; };
+		6083E07F262D99C6006420A4 /* ChangePassWordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6083E07E262D99C6006420A4 /* ChangePassWordModel.m */; };
+		6083E08826318396006420A4 /* MyActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6083E08726318396006420A4 /* MyActivityIndicatorView.m */; };
+		6083E0E72635847B006420A4 /* SearchSonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6083E0E62635847B006420A4 /* SearchSonTableViewCell.m */; };
 		60979328258A2BB60088EFF8 /* laokang.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 60979327258A2BB60088EFF8 /* laokang.jpeg */; };
 		6097933A258A363D0088EFF8 /* AnalyseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60979339258A363D0088EFF8 /* AnalyseViewController.m */; };
 		60979340258A36570088EFF8 /* AnalyseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6097933F258A36570088EFF8 /* AnalyseView.m */; };
@@ -184,6 +191,18 @@
 		6083E010262855EA006420A4 /* LoginView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginView.m; sourceTree = "<group>"; };
 		6083E0212628561B006420A4 /* LoginModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginModel.h; sourceTree = "<group>"; };
 		6083E0222628561B006420A4 /* LoginModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
+		6083E05E262C0E19006420A4 /* PhoneNumberModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhoneNumberModel.h; sourceTree = "<group>"; };
+		6083E05F262C0E19006420A4 /* PhoneNumberModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhoneNumberModel.m; sourceTree = "<group>"; };
+		6083E067262C0E2B006420A4 /* PhoneNumberView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhoneNumberView.h; sourceTree = "<group>"; };
+		6083E068262C0E2B006420A4 /* PhoneNumberView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhoneNumberView.m; sourceTree = "<group>"; };
+		6083E06D262C0E3B006420A4 /* PhoneNumberViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhoneNumberViewController.h; sourceTree = "<group>"; };
+		6083E06E262C0E3B006420A4 /* PhoneNumberViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhoneNumberViewController.m; sourceTree = "<group>"; };
+		6083E07D262D99C6006420A4 /* ChangePassWordModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangePassWordModel.h; sourceTree = "<group>"; };
+		6083E07E262D99C6006420A4 /* ChangePassWordModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangePassWordModel.m; sourceTree = "<group>"; };
+		6083E08626318396006420A4 /* MyActivityIndicatorView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyActivityIndicatorView.h; sourceTree = "<group>"; };
+		6083E08726318396006420A4 /* MyActivityIndicatorView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyActivityIndicatorView.m; sourceTree = "<group>"; };
+		6083E0E52635847B006420A4 /* SearchSonTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchSonTableViewCell.h; sourceTree = "<group>"; };
+		6083E0E62635847B006420A4 /* SearchSonTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchSonTableViewCell.m; sourceTree = "<group>"; };
 		60979327258A2BB60088EFF8 /* laokang.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = laokang.jpeg; sourceTree = "<group>"; };
 		60979338258A363D0088EFF8 /* AnalyseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalyseViewController.h; sourceTree = "<group>"; };
 		60979339258A363D0088EFF8 /* AnalyseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnalyseViewController.m; sourceTree = "<group>"; };
@@ -302,6 +321,8 @@
 				60334BD2256E80EB006CD8DD /* AppDelegate.m */,
 				60334BD4256E80EB006CD8DD /* SceneDelegate.h */,
 				60334BD5256E80EB006CD8DD /* SceneDelegate.m */,
+				6083E08626318396006420A4 /* MyActivityIndicatorView.h */,
+				6083E08726318396006420A4 /* MyActivityIndicatorView.m */,
 				6083E00B26285591006420A4 /* LoginView */,
 				6083DFF12627086C006420A4 /* Register */,
 				6062A9882598AFA500326B9C /* Manage.h */,
@@ -467,13 +488,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		60334C23256E8239006CD8DD /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		60334C6825752D7D006CD8DD /* 素材图片 */ = {
 			isa = PBXGroup;
 			children = (
@@ -526,6 +540,8 @@
 			children = (
 				60334C9D2577CD59006CD8DD /* SearchView.h */,
 				60334C9E2577CD59006CD8DD /* SearchView.m */,
+				6083E0E52635847B006420A4 /* SearchSonTableViewCell.h */,
+				6083E0E62635847B006420A4 /* SearchSonTableViewCell.m */,
 			);
 			path = SearchVIew;
 			sourceTree = "<group>";
@@ -564,9 +580,8 @@
 		6083DFF12627086C006420A4 /* Register */ = {
 			isa = PBXGroup;
 			children = (
-				6083DFF4262708B9006420A4 /* Model */,
-				6083DFF3262708B7006420A4 /* View */,
-				6083DFF2262708B3006420A4 /* View Controller */,
+				6083E053262C0D39006420A4 /* PhoneNumber */,
+				6083E054262C0D75006420A4 /* MainRegister */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -656,10 +671,66 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		6083E053262C0D39006420A4 /* PhoneNumber */ = {
+			isa = PBXGroup;
+			children = (
+				6083E05D262C0DDF006420A4 /* Model */,
+				6083E05C262C0DDC006420A4 /* View */,
+				6083E05B262C0DD7006420A4 /* View Controller */,
+			);
+			path = PhoneNumber;
+			sourceTree = "<group>";
+		};
+		6083E054262C0D75006420A4 /* MainRegister */ = {
+			isa = PBXGroup;
+			children = (
+				6083DFF4262708B9006420A4 /* Model */,
+				6083DFF3262708B7006420A4 /* View */,
+				6083DFF2262708B3006420A4 /* View Controller */,
+			);
+			path = MainRegister;
+			sourceTree = "<group>";
+		};
+		6083E05B262C0DD7006420A4 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				6083E06D262C0E3B006420A4 /* PhoneNumberViewController.h */,
+				6083E06E262C0E3B006420A4 /* PhoneNumberViewController.m */,
+			);
+			path = "View Controller";
+			sourceTree = "<group>";
+		};
+		6083E05C262C0DDC006420A4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6083E067262C0E2B006420A4 /* PhoneNumberView.h */,
+				6083E068262C0E2B006420A4 /* PhoneNumberView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6083E05D262C0DDF006420A4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6083E05E262C0E19006420A4 /* PhoneNumberModel.h */,
+				6083E05F262C0E19006420A4 /* PhoneNumberModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6083E07C262D999F006420A4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6083E07D262D99C6006420A4 /* ChangePassWordModel.h */,
+				6083E07E262D99C6006420A4 /* ChangePassWordModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		6097932C258A35210088EFF8 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				60334C23256E8239006CD8DD /* Model */,
+				6083E07C262D999F006420A4 /* Model */,
 				60334C22256E8237006CD8DD /* View */,
 				60334C21256E8234006CD8DD /* ViewController */,
 			);
@@ -939,14 +1010,18 @@
 				60334BD9256E80EB006CD8DD /* ViewController.m in Sources */,
 				60334C38256E839C006CD8DD /* GuideViewController.m in Sources */,
 				602D27C12587A42F00BC6432 /* ManageViewController.m in Sources */,
+				6083E069262C0E2B006420A4 /* PhoneNumberView.m in Sources */,
 				60334C8A2577C8D5006CD8DD /* SearchViewController.m in Sources */,
 				6097933A258A363D0088EFF8 /* AnalyseViewController.m in Sources */,
 				60334C3E256E83AB006CD8DD /* MyViewController.m in Sources */,
 				60979340258A36570088EFF8 /* AnalyseView.m in Sources */,
 				60334BD3256E80EB006CD8DD /* AppDelegate.m in Sources */,
+				6083E0E72635847B006420A4 /* SearchSonTableViewCell.m in Sources */,
 				602D27B52587852C00BC6432 /* FourthSonTableViewCell.m in Sources */,
+				6083E060262C0E19006420A4 /* PhoneNumberModel.m in Sources */,
 				60334BE4256E80ED006CD8DD /* main.m in Sources */,
 				6083E0232628561B006420A4 /* LoginModel.m in Sources */,
+				6083E08826318396006420A4 /* MyActivityIndicatorView.m in Sources */,
 				6083DEE22622DEB0006420A4 /* DryViewController.m in Sources */,
 				6062A98A2598AFA500326B9C /* Manage.m in Sources */,
 				601D994C25C1A4E500F9E5CC /* TextModel.m in Sources */,
@@ -954,8 +1029,10 @@
 				60334C32256E8384006CD8DD /* MapViewController.mm in Sources */,
 				6083DEDC2622DE70006420A4 /* WetViewController.m in Sources */,
 				60D6222D26143C6B00759589 /* TestView.m in Sources */,
+				6083E06F262C0E3B006420A4 /* PhoneNumberViewController.m in Sources */,
 				601D993E25B9B33C00F9E5CC /* ResultViewController.m in Sources */,
 				60334C5D25752717006CD8DD /* FirstView.m in Sources */,
+				6083E07F262D99C6006420A4 /* ChangePassWordModel.m in Sources */,
 				6083DEEE2622DECD006420A4 /* HarmfulViewController.m in Sources */,
 				602D27CA2587A44800BC6432 /* ManageView.m in Sources */,
 				6083DFF72627091D006420A4 /* RegisterModel.m in Sources */,
@@ -972,6 +1049,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6083E04F262C04BD006420A4 /* ViewController.m in Sources */,
 				60334BEE256E80ED006CD8DD /* TrushTests.m in Sources */,
 				601D993F25B9B33C00F9E5CC /* ResultViewController.m in Sources */,
 			);

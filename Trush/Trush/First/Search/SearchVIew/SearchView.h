@@ -9,11 +9,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SearchView : UIView
+@interface SearchView : UIView<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITextField *searchTextField;
 @property (nonatomic, strong) UIButton *searchButton;
 
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *hotSearchArray;
 @end
 
 NS_ASSUME_NONNULL_END

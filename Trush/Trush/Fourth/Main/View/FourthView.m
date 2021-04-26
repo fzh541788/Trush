@@ -23,15 +23,17 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self addSubview:_tableView];
+    [_tableView registerClass:[FourthSonTableViewCell class] forCellReuseIdentifier:@"fourthSonIdentifier"];
     
+    _tempArray = [[NSMutableArray alloc]initWithObjects:@"数据分析", @"修改个人信息", @"管理账号信息", @"修改密码", @"忘记密码", @"帮助",nil];
     return self;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 8;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
@@ -43,36 +45,21 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *CellIdentifier = [NSString stringWithFormat:@"cell%ld%ld",indexPath.section,indexPath.row];
-       FourthSonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-       if (!cell) {
-           cell = [[FourthSonTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-       }
+    FourthSonTableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:@"fourthSonIdentifier" forIndexPath:indexPath];
+    cell.headImage.image = nil;
+    cell.headTitileLabel.text = nil;
+    cell.titleLabel.text = nil;
+    cell.titleLabel.textColor = [UIColor blackColor];
+    cell.accessoryType = UITableViewCellAccessoryNone;
     if (indexPath.row == 0) {
         cell.headImage.image = [UIImage imageNamed:@"logo.png"];
         cell.headTitileLabel.text = @"复杂化";
-        //这个image应该是从后台获取不同的头像及id姓名
-    } else if (indexPath.row == 1) {
-        cell.titleLabel.text = @"数据分析";
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    } else if (indexPath.row == 2) {
-        cell.titleLabel.text = @"修改个人信息";
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    } else if (indexPath.row == 3) {
-        cell.titleLabel.text = @"管理账号信息";
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    } else if (indexPath.row == 4) {
-        cell.titleLabel.text = @"修改密码";
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    } else if (indexPath.row == 5) {
-        cell.titleLabel.text = @"忘记密码";
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    } else if (indexPath.row == 6) {
-        cell.titleLabel.text = @"帮助";
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     } else if (indexPath.row == 7) {
         cell.titleLabel.text = @"                                      退出账号";
         cell.titleLabel.textColor = [UIColor redColor];
+    } else {
+        cell.titleLabel.text = [NSString stringWithFormat:@"%@",_tempArray[indexPath.row - 1]];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     return cell;
 }

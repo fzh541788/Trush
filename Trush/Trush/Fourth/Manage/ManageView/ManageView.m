@@ -51,14 +51,14 @@
     FMDatabase *dataBase = [FMDatabase databaseWithPath:self.path];
     NSLog(@"%@",self.path);
     if ([dataBase open]) {
-    // 1.执行查询语句
-    FMResultSet *resultSet = [dataBase executeQuery:@"SELECT * FROM t_agreeOrder"];
-    // 2.遍历结果
+        // 1.执行查询语句
+        FMResultSet *resultSet = [dataBase executeQuery:@"SELECT * FROM t_agreeOrder"];
+        // 2.遍历结果
         self.countNumber = [[NSMutableArray alloc]init];
-    while ([resultSet next]) {
-        NSString *bankStr = [resultSet stringForColumn:@"name"];
-        [self.countNumber addObject:bankStr];
-    }
+        while ([resultSet next]) {
+            NSString *bankStr = [resultSet stringForColumn:@"name"];
+            [self.countNumber addObject:bankStr];
+        }
         [dataBase close];
     } else {
         NSLog(@"打开数据库失败");
@@ -72,16 +72,16 @@
         if ([dataBase open]) {
             BOOL result = [dataBase executeUpdate:@"delete from t_agreeOrder where name = ?",self->_countNumber[indexPath.row]];
             if (result) {
-//                NSLog(@"删除数据成功");
+                //                NSLog(@"删除数据成功");
             } else {
                 NSLog(@"删除数据失败");
             }
             [dataBase close];
         }
-//        dispatch_async(dispatch_get_main_queue(), ^{
+        //        dispatch_async(dispatch_get_main_queue(), ^{
         [self queryData];
         [self.tableView reloadData];
-//        });
+        //        });
         completionHandler (YES);
         
     }];
@@ -97,11 +97,11 @@
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect {
+ // Drawing code
+ }
+ */
 
 @end

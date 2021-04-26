@@ -18,9 +18,9 @@
     UIView *backgrandView = [[UIView alloc]init];
     [self addSubview:backgrandView];
     [backgrandView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.mas_left);
-            make.top.equalTo(self.mas_top).offset(82);
-            make.size.mas_equalTo(CGSizeMake(self.bounds.size.width,self.bounds.size.height / 6));
+        make.left.equalTo(self.mas_left);
+        make.top.equalTo(self.mas_top).offset(82);
+        make.size.mas_equalTo(CGSizeMake(self.bounds.size.width,self.bounds.size.height / 6));
     }];
     backgrandView.clipsToBounds = YES;
     backgrandView.layer.cornerRadius = 16;
@@ -34,9 +34,9 @@
     _searchTextField.layer.cornerRadius = 25.0f;
     [self addSubview:_searchTextField];
     [_searchTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.mas_left).offset(20);
-            make.bottom.equalTo(self.mas_top).offset(160);
-            make.size.mas_equalTo(CGSizeMake(400,50));
+        make.left.equalTo(self.mas_left).offset(20);
+        make.bottom.equalTo(self.mas_top).offset(160);
+        make.size.mas_equalTo(CGSizeMake(400,50));
     }];
     [_searchTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     UIColor *color = [UIColor colorWithRed:0.6745 green:0.7647 blue:0.2863 alpha:1];
@@ -47,17 +47,17 @@
     [_searchButton setTintColor:[UIColor grayColor]];
     _searchTextField.rightViewMode = UITextFieldViewModeAlways;
     _searchTextField.rightView = _searchButton;
-
+    
     UIView *topBackgrandView = [[UIView alloc]init];
     [self addSubview:topBackgrandView];
     [topBackgrandView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.mas_left).offset(20);
-            make.top.equalTo(_searchTextField.mas_bottom).offset(15);
-            make.size.mas_equalTo(CGSizeMake(400, 190));
+        make.left.equalTo(self.mas_left).offset(20);
+        make.top.equalTo(_searchTextField.mas_bottom).offset(15);
+        make.size.mas_equalTo(CGSizeMake(400, 190));
     }];
-     topBackgrandView.clipsToBounds = YES;
+    topBackgrandView.clipsToBounds = YES;
     
-     topBackgrandView.layer.cornerRadius = 16;
+    topBackgrandView.layer.cornerRadius = 16;
     UIImageView *topImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"16148.jpg"]];
     topImageView.frame = CGRectMake(0, 0, 400, 190);
     [topBackgrandView addSubview:topImageView];
@@ -76,6 +76,7 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self addSubview:_tableView];
+    [_tableView registerClass:[FirstTableViewCell class] forCellReuseIdentifier:@"firstSonIdentifier"];
     
     UIView *containView = [[UIView alloc] init];
     [self addSubview:containView];
@@ -85,15 +86,15 @@
         make.size.mas_equalTo(CGSizeMake(self.bounds.size.width / 2 , 120));
     }];
     containView.backgroundColor = [UIColor whiteColor];
-//    containView.layer.borderWidth = 0.2;
-//    containView.layer.cornerRadius = 64;
-//    containView.clipsToBounds = YES;
+    //    containView.layer.borderWidth = 0.2;
+    //    containView.layer.cornerRadius = 64;
+    //    containView.clipsToBounds = YES;
     _pictureButton = [[UIButton alloc]init];
     [_pictureButton setFrame:CGRectMake(0, 0,self.bounds.size.width / 2 , 120)];
     [containView addSubview:_pictureButton];
     [_pictureButton setImage:[UIImage imageNamed:@"xianxingxiangji.png"] forState:UIControlStateNormal];
-
-
+    
+    
     UIView *containRightView = [[UIView alloc] init];
     [self addSubview:containRightView];
     [containRightView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -102,15 +103,16 @@
         make.size.mas_equalTo(CGSizeMake(self.bounds.size.width / 2 , 120));
     }];
     containRightView.backgroundColor = [UIColor whiteColor];
-//    containRightView.layer.borderWidth = 0.2;
-//    containRightView.layer.cornerRadius = 64;
-//    containRightView.clipsToBounds = YES;
+    //    containRightView.layer.borderWidth = 0.2;
+    //    containRightView.layer.cornerRadius = 64;
+    //    containRightView.clipsToBounds = YES;
     _voiceButton = [[UIButton alloc]init];
     [_voiceButton setFrame:CGRectMake(0, 0,self.bounds.size.width / 2 , 120)];
     [containRightView addSubview:_voiceButton];
     [_voiceButton setImage:[UIImage imageNamed:@"xianxinghuatong-2.png"] forState:UIControlStateNormal];
     //tableview要改
-
+    
+    _tempArray = [[NSMutableArray alloc]initWithObjects:@"干垃圾", @"湿垃圾", @"有害垃圾", @"可回收垃圾", nil];
     
     return self;
 }
@@ -130,27 +132,22 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *CellIdentifier = [NSString stringWithFormat:@"cell%ld%ld",indexPath.section,indexPath.row];
-    FirstTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (!cell) {
-        cell = [[FirstTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    FirstTableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:@"firstSonIdentifier" forIndexPath:indexPath];
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.headImage.image = nil;
+    cell.headTitileLabel.text = nil;
+    if (indexPath.row != 0) {
+        cell.headTitileLabel.text = [NSString stringWithFormat:@"%@",_tempArray[indexPath.row - 1]];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     if (indexPath.row == 2) {
         cell.headImage.image = [UIImage imageNamed:@"icon_garbage_wet.png"];
-        cell.headTitileLabel.text = @"湿垃圾";
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     } else if (indexPath.row == 1) {
         cell.headImage.image = [UIImage imageNamed:@"icon_garbage_dry.png"];
-        cell.headTitileLabel.text = @"干垃圾";
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     } else if (indexPath.row == 3) {
         cell.headImage.image = [UIImage imageNamed:@"icon_garbage_harmful.png"];
-        cell.headTitileLabel.text = @"有害垃圾";
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     } else if (indexPath.row == 4) {
         cell.headImage.image = [UIImage imageNamed:@"logo.png"];
-        cell.headTitileLabel.text = @"可回收垃圾";
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     return cell;
 }

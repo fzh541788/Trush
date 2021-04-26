@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *path;
 
+@property (nonatomic, strong) NSMutableArray *tempArray;
+
 @end
 
 NS_ASSUME_NONNULL_END

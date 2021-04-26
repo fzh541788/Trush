@@ -11,8 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RegisterViewController : UIViewController
 
-@property (nonatomic, copy) NSString *path;
-@property (nonatomic, strong) FMDatabase *dataBase;
+@property (nonatomic, copy) NSString *phone;
 
 @end
 

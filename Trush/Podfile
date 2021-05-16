@@ -6,4 +6,5 @@ pod 'Masonry'
 pod 'FMDB'
 pod 'JSONModel'
 pod 'AFNetworking'
+pod 'SDWebImage', '~> 3.7.5'
 end      

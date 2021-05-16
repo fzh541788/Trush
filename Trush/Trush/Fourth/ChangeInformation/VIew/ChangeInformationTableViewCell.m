@@ -1,13 +1,13 @@
 //
-//  FourthSonTableViewCell.m
+//  ChangeInformationTableViewCell.m
 //  Trush
 //
-//  Created by young_jerry on 2020/12/14.
+//  Created by young_jerry on 2021/5/12.
 //
 
-#import "FourthSonTableViewCell.h"
+#import "ChangeInformationTableViewCell.h"
 
-@implementation FourthSonTableViewCell
+@implementation ChangeInformationTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -28,9 +28,9 @@
     _headImage = [[UIImageView alloc]init];
     [self.contentView addSubview:_headImage];
     
-    _headTitileLabel = [[UILabel alloc]init];
-    _headTitileLabel.font = [UIFont systemFontOfSize:20];
-    [self.contentView addSubview:_headTitileLabel];
+    _informationLabel = [[UILabel alloc]init];
+    _informationLabel.font = [UIFont systemFontOfSize:16];
+    [self.contentView addSubview:_informationLabel];
     return self;
 }
 
@@ -38,6 +38,7 @@
     [super layoutSubviews];
     _titleLabel.frame = CGRectMake(20, 20, 300, 50);
     _headImage.frame = CGRectMake(20, 50, 96, 96);
-    _headTitileLabel.frame = CGRectMake(150, 50, 300, 50);
+    _informationLabel.frame = CGRectMake(140, 20, 300, 50);
 }
+
 @end

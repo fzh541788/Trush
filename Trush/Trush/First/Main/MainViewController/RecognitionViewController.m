@@ -78,6 +78,7 @@
     if(textField == self.firstView.searchTextField) {
         [textField resignFirstResponder];
         SearchViewController *searchViewController = [[SearchViewController alloc]init];
+        searchViewController.phone = _phone;
         [self.navigationController pushViewController:searchViewController animated:YES];
         
     }
@@ -167,9 +168,19 @@
             [self->_secondView.maybe addObject:[[mainViewNowModel.data[0]list][i]category]];
             [self->_secondView.name addObject:[[mainViewNowModel.data[0]list][i]name]];
         }
+        if ([[[mainViewNowModel.data[0]list][0]category] isEqualToString:@"湿垃圾"]) {
+            self->_typeName = @"wet";
+        } else if ([[[mainViewNowModel.data[0]list][0]category] isEqualToString:@"干垃圾"]) {
+            self->_typeName = @"dry";
+        } else if ([[[mainViewNowModel.data[0]list][0]category] isEqualToString:@"有害垃圾"]) {
+            self->_typeName = @"harm";
+        } else if ([[[mainViewNowModel.data[0]list][0]category] isEqualToString:@"可回收垃圾"]) {
+            self->_typeName = @"recyclable";
+        }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.secondView.tableView reloadData];
             [self presentViewController:self->_secondView animated:YES completion:nil];
+            [[Manage sharedManager]netWorkOfNumberType:self->_typeName and:self->_phone];
             [self->_myActivityIndicatorView stopAnimating];
         });
     } error:^(NSError * _Nonnull error) {
@@ -330,9 +341,19 @@
                         [self->_secondView.maybe addObject:[mainViewNowModel.data.list[i]category]];
                         [self->_secondView.name addObject:[mainViewNowModel.data.list[i]name]];
                     }
+                    if ([[mainViewNowModel.data.list[0]category] isEqualToString:@"湿垃圾"]) {
+                        self->_typeName = @"wet";
+                    } else if ([[mainViewNowModel.data.list[0]category] isEqualToString:@"干垃圾"]) {
+                        self->_typeName = @"dry";
+                    } else if ([[mainViewNowModel.data.list[0]category] isEqualToString:@"有害垃圾"]) {
+                        self->_typeName = @"harm";
+                    } else if ([[mainViewNowModel.data.list[0]category] isEqualToString:@"可回收垃圾"]) {
+                        self->_typeName = @"recyclable";
+                    }
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self.secondView.tableView reloadData];
                         [self presentViewController:self->_secondView animated:YES completion:nil];
+                        [[Manage sharedManager]netWorkOfNumberType:self->_typeName and:self->_phone];
                         [self->_myActivityIndicatorView stopAnimating];
                     });
                 } error:^(NSError * _Nonnull error) {

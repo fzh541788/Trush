@@ -91,13 +91,13 @@ static Manage *manager = nil;
     //    NSLog(@"%@,%@",phoneNumber,password);
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [manager.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    NSString *url = @"http://116.62.21.180:8086/user/login.do";
+    NSString *url = @"http://116.62.21.180:8088/user/login.do";
     NSDictionary *parameters = @{@"phoneNumber":phoneNumber,
                                  @"password":password};
     [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         //        NSLog(@"%@",responseObject);
         LoginModel *model = [[LoginModel alloc] initWithDictionary:responseObject error:nil];
-        //        NSLog(@"%d", model.status);
+//                NSLog(@"%@", model);
         loginSucceedBlock(model);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
@@ -109,7 +109,7 @@ static Manage *manager = nil;
 - (void)netWorkPhoneNumber:(NSString *)a and:(PhoneNumberSucceedBlock)phoneNumberSucceedBlock error:(ErrorBlock)errorBlock {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [manager.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    NSString *url = @"http://116.62.21.180:8088/user/getmsgcode.do";
+    NSString *url = @"http://116.62.21.180:8088/user/send_code.do";
     NSDictionary *parameters = @{@"phone":a};
     [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         //        NSLog(@"%@",responseObject);
@@ -141,18 +141,112 @@ static Manage *manager = nil;
     }];
 }
 
-- (void)netWorkOfChangePassword:(NSString *)newPassWord and:(ChangePassWordSucceedBlock)changePassWordSucceedBlock error:(ErrorBlock)errorBlock {
+- (void)netWorkOfChangePassword:(NSString *)newPassWord and:(nonnull NSString *)phone and:(nonnull ChangePassWordSucceedBlock)changePassWordSucceedBlock error:(nonnull ErrorBlock)errorBlock {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [manager.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    NSString *url = @"http://116.62.21.180:8088/user/register.do";
-    NSDictionary *parameters = @{@"password":newPassWord};
+    NSString *url = @"http://116.62.21.180:8088/user/loginresetpassword.do";
+    NSDictionary *parameters = @{@"phone":phone,@"newpassword":newPassWord};
     [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         ChangePassWordModel *model = [[ChangePassWordModel alloc] initWithDictionary:responseObject error:nil];
         changePassWordSucceedBlock(model);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
         NSLog(@"请求失败%@", error);
         errorBlock(error);
     }];
+}
+
+- (void)netWorkOfChangeInformation:(NSString *)phone and:(NSString *)name and:(NSString *)msg and:(NSString *)sex and:(NSString *)stage and:(nonnull ChangeInformationSucceedBlock)changeInformationSucceedBlock error:(nonnull ErrorBlock)errorBlock {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    NSString *url = @"http://116.62.21.180:8088/user/updatemsg.do";
+    NSDictionary *parameters = @{@"phone":phone,@"nameNew":name,@"msg":msg,@"sex":sex,@"stage":stage};
+    [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        ChangeInformation *model = [[ChangeInformation alloc] initWithDictionary:responseObject error:nil];
+        changeInformationSucceedBlock(model);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"请求失败%@", error);
+        errorBlock(error);
+    }];
+}
+
+- (void)networkofChangeHeadImage:(NSString *)phone and:(NSData *)imageData and:(ChangeHeadImageSucceedBlock)changeHeadImageSucceedBlock error:(ErrorBlock)errorBlock {
+     NSString *url = @"http://116.62.21.180:8088/user/change_pic";
+     NSDictionary *dictionary = @{@"phone":phone};
+     NSLog(@"%@",dictionary);
+     AFHTTPSessionManager *sessionManager = [AFHTTPSessionManager manager];
+     sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain",@"application/x-www-form-urlencodem", nil];
+     sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
+     [sessionManager.requestSerializer setValue:@"multipart/form-data" forHTTPHeaderField:@"Content-Type"];
+     [sessionManager POST:url parameters:dictionary constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+         [formData appendPartWithFileData:imageData name:@"pic"  fileName:@"headImageTest.jpg" mimeType:@"image/jpg"];       // 上传图片的参数key
+     } progress:^(NSProgress * _Nonnull uploadProgress) {
+         
+     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+          ChangeHeadImage *model = [[ChangeHeadImage alloc] initWithDictionary:responseObject error:nil];
+          changeHeadImageSucceedBlock(model);
+         
+     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+          errorBlock(error);
+     }];
+}
+
+- (void)netWorkOfNumberType:(NSString *)type and:(NSString *)phone {
+     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+     [manager.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+     NSString *url = @"http://116.62.21.180:8088/count/get_sort";
+     NSDictionary *parameters = @{@"type":type,@"phone":phone,@"n":@1};
+     [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+          NSLog(@"%@",responseObject);
+     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+         NSLog(@"请求失败%@", error);
+     }];
+}
+
+- (void)networkofAnalyse:(NSString *)phone and:(AnalyseModelSucceedBlock)analyseModelSucceedBlock error:(ErrorBlock)errorBlock {
+     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+     [manager.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+     NSString *url = @"http://116.62.21.180:8088/user/get_detail";
+     NSDictionary *parameters = @{@"phone":phone};
+     [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+         AnalyseModel *model = [[AnalyseModel alloc] initWithDictionary:responseObject error:nil];
+         analyseModelSucceedBlock(model);
+     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+         NSLog(@"请求失败%@", error);
+         errorBlock(error);
+     }];
+}
+
+- (void)netWorkOfNearbyBin:(NSString *)location and:(NearbyBinModelSucceedBlock)nearbyBinModelSucceedBlock error:(ErrorBlock)errorBlock {
+     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+     [manager.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+     NSString *url = @"http://116.62.21.180:8088/recycle/get_bin.do";
+     NSDictionary *parameters = @{@"location":location};
+     [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+         NearbyBinModel *model = [[NearbyBinModel alloc] initWithDictionary:responseObject error:nil];
+         nearbyBinModelSucceedBlock(model);
+     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+         NSLog(@"请求失败%@", error);
+         errorBlock(error);
+     }];
+}
+
+- (void)netWorkOfUpBin:(NSString *)location and:(NSData *)imageData and:(float)longitude and:(float )latitude and:(UpBinModelSucceedBlock)upBinModelSucceedBlock error:(ErrorBlock)errorBlock {
+     NSString *url = @"http://116.62.21.180:8088/recycle/upload_bin.do";
+     NSDictionary *dictionary = @{@"location":location,@"longitude":[NSString stringWithFormat:@"%f",longitude],@"latitude":[NSString stringWithFormat:@"%f",latitude]};
+     NSLog(@"%@",dictionary);
+     AFHTTPSessionManager *sessionManager = [AFHTTPSessionManager manager];
+     sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain",@"application/x-www-form-urlencodem", nil];
+     sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
+     [sessionManager.requestSerializer setValue:@"multipart/form-data" forHTTPHeaderField:@"Content-Type"];
+     [sessionManager POST:url parameters:dictionary constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+         [formData appendPartWithFileData:imageData name:@"pic"  fileName:@"headImageTest.jpg" mimeType:@"image/jpg"];       // 上传图片的参数key
+     } progress:^(NSProgress * _Nonnull uploadProgress) {
+         
+     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+          UpBinModel *model = [[UpBinModel alloc] initWithDictionary:responseObject error:nil];
+          upBinModelSucceedBlock(model);
+     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+          errorBlock(error);
+     }];
 }
 @end

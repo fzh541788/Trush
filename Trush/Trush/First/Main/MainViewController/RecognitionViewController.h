@@ -19,6 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UIImageView *imageView;
 
+@property (nonatomic, copy) NSString *phone;
+@property (nonatomic, copy) NSString *typeName;
+
 @end
 
 NS_ASSUME_NONNULL_END

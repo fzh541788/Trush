@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AnalyseViewController : UIViewController
 
-@property (nonatomic, strong) NSArray *pieDataArray;
+@property (nonatomic, strong) NSMutableArray *pieDataArray;
 
 @end
 

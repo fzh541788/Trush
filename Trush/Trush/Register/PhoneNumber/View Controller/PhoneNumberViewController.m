@@ -45,7 +45,7 @@
         [[Manage sharedManager]netWorkPhoneNumber:_phoneNumberView.phoneNumberTextField.text and:^(PhoneNumberModel * _Nonnull mainViewNowModel) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 //            NSLog(@"%d",mainViewNowModel.status);
-                if (mainViewNowModel.status == 1 ) {
+                if (mainViewNowModel.status == 0 ) {
                     RegisterViewController *registerViewController = [[RegisterViewController alloc]init];
                     registerViewController.phone = self->_phoneNumberView.phoneNumberTextField.text;
                     registerViewController.modalPresentationStyle = UIModalPresentationFullScreen;

@@ -11,6 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SearchViewController : UIViewController
 
+@property (nonatomic, copy) NSString *phone;
+@property (nonatomic, copy) NSString *typeName;
+
 @end
 
 NS_ASSUME_NONNULL_END

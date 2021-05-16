@@ -10,9 +10,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FourthSonTableViewCell : UITableViewCell
+
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *headTitileLabel;
+@property (nonatomic, strong) UILabel *msgLabel;
 @property (nonatomic, strong) UIImageView *headImage;
+
+@property (nonatomic, strong) UIButton *headImageButton;
+
 @end
 
 NS_ASSUME_NONNULL_END

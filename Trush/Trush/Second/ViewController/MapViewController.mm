@@ -13,6 +13,8 @@
 #import <BaiduMapAPI_Search/BMKSearchComponent.h>
 #import "Masonry.h"
 #import "TestView.h"
+#import "UIImageView+WebCache.h"
+#import "Manage.h"
 #define mas_height self.view.frame.size.height
 #define mas_width self.view.frame.size.width
 
@@ -89,9 +91,9 @@
     _pictureView.tag = 22;
     _pictureView.hidden = YES;
     
-    UIImageView *trashImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"QQ20210401-0.jpg"]];
-    trashImage.frame = CGRectMake(0, 0, mas_width, 200);
-    [_pictureView addSubview:trashImage];
+    _trashImage = [[UIImageView alloc]init];
+    _trashImage.frame = CGRectMake(0, 0, mas_width, 200);
+    [_pictureView addSubview:_trashImage];
     
 }
 //增加垃圾桶图片 到这去 刷新路径 删除点
@@ -120,34 +122,39 @@
     start.pt = CLLocationCoordinate2DMake(_locationOne, _locationTwo);
     BMKPlanNode *end = [[BMKPlanNode alloc] init];
     _temporaryEnd = [[BMKPlanNode alloc]init];
-    if (button.tag == 1) {
-        end.pt = CLLocationCoordinate2DMake(39.909605, 116.410000);
-        _temporaryEnd.pt = CLLocationCoordinate2DMake(39.909605, 116.410000);
-        BMKWalkingRoutePlanOption *walkingRouteSearchOption = [[BMKWalkingRoutePlanOption alloc] init];
-        walkingRouteSearchOption.from = start;
-        walkingRouteSearchOption.to = end;
-        
-        BOOL flag = [routeSearch walkingSearch:walkingRouteSearchOption];
-        if (flag) {
-            NSLog(@"步行路线规划检索发送成功");
-        } else {
-            NSLog(@"步行路线规划检索发送失败");
+    for (int i = 0; i < _total; i++) {
+        if (button.tag == i + 1) {
+            end.pt = CLLocationCoordinate2DMake([_tempLatitude[i] floatValue], [_tempLongitude[i] floatValue]);
+            _temporaryEnd.pt = CLLocationCoordinate2DMake([_tempLatitude[i] floatValue], [_tempLongitude[i] floatValue]);
+            BMKWalkingRoutePlanOption *walkingRouteSearchOption = [[BMKWalkingRoutePlanOption alloc] init];
+            walkingRouteSearchOption.from = start;
+            walkingRouteSearchOption.to = end;
+           [_trashImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@",_trashImageScource[i]]]];
+            
+            BOOL flag = [routeSearch walkingSearch:walkingRouteSearchOption];
+            if (flag) {
+                NSLog(@"步行路线规划检索发送成功");
+            } else {
+                NSLog(@"步行路线规划检索发送失败");
+            }
         }
     }
-    if (button.tag == 2) {
-        end.pt = CLLocationCoordinate2DMake(39.919605, 116.410000);
-        _temporaryEnd.pt = CLLocationCoordinate2DMake(39.919605, 116.410000);
-        BMKWalkingRoutePlanOption *walkingRouteSearchOption = [[BMKWalkingRoutePlanOption alloc] init];
-        walkingRouteSearchOption.from = start;
-        walkingRouteSearchOption.to = end;
-        
-        BOOL flag = [routeSearch walkingSearch:walkingRouteSearchOption];
-        if (flag) {
-            NSLog(@"步行路线规划检索发送成功");
-        } else {
-            NSLog(@"步行路线规划检索发送失败");
-        }
-    }
+    
+//    if (button.tag == 2) {
+//        end.pt = CLLocationCoordinate2DMake([_tempLatitude[1] floatValue], [_tempLongitude[1] floatValue]);
+//        _temporaryEnd.pt = CLLocationCoordinate2DMake([_tempLatitude[1] floatValue], [_tempLongitude[1] floatValue]);
+//        BMKWalkingRoutePlanOption *walkingRouteSearchOption = [[BMKWalkingRoutePlanOption alloc] init];
+//        walkingRouteSearchOption.from = start;
+//        walkingRouteSearchOption.to = end;
+//        [_trashImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@",_trashImageScource[1]]]];
+//
+//        BOOL flag = [routeSearch walkingSearch:walkingRouteSearchOption];
+//        if (flag) {
+//            NSLog(@"步行路线规划检索发送成功");
+//        } else {
+//            NSLog(@"步行路线规划检索发送失败");
+//        }
+//    }
     _testView.pictureButton.hidden = NO;
 }
 
@@ -349,23 +356,10 @@
 - (void)pressPicture {
     if (_didSecondChange) {
         [_testView.pictureButton setTitle:@"图片" forState:UIControlStateNormal];
-        //创建个view
         _pictureView.hidden = YES;
-        
     } else {
         [_testView.pictureButton setTitle:@"收起" forState:UIControlStateNormal];
         _pictureView.hidden = NO;
-        //                _viewTest.frame = CGRectMake(0, self.view.frame.size.height - 480, self.view.frame.size.width, 200);
-        //                _secondView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 280, self.view.frame.size.width, 200)];
-        //                _secondView.backgroundColor = [UIColor whiteColor];
-        //                _secondView.tag = 23;
-        //                [self.view addSubview:_secondView];
-        //                _secondView.pagingEnabled = NO;
-        //                _secondView.delegate = self;
-        //                _secondView.contentSize = CGSizeMake(self.view.frame.size.width, 200);
-        //                _secondView.showsVerticalScrollIndicator = FALSE;
-        //                _secondView.showsHorizontalScrollIndicator = FALSE;
-        
     }
     _didSecondChange = !_didSecondChange;
     
@@ -429,29 +423,61 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [picker dismissViewControllerAnimated:YES completion:^{}];
-    //    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage]; //通过key值获取到图片123
-    //    _imageView.image = image;  //给UIimageView赋值已经选择的相片
-    NSLog(@"已经选择照片");
+        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    //通过key值获取到图片123
+    NSData *imageData = UIImageJPEGRepresentation(image,1.0f);
+    [[Manage sharedManager]netWorkOfUpBin:_location and:imageData and:_locationTwo and:_locationOne and:^(UpBinModel * _Nonnull mainViewNowModel) {
+        if (mainViewNowModel.status == 0) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"添加成功！" preferredStyle:UIAlertControllerStyleAlert];
+                            UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+                            [alert addAction:sureAction];
+                            [self presentViewController:alert animated:NO completion:nil];
+        } else if (mainViewNowModel.status == 1) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"该垃圾桶已存在！" preferredStyle:UIAlertControllerStyleAlert];
+                            UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+                            [alert addAction:sureAction];
+                            [self presentViewController:alert animated:NO completion:nil];
+        }
+    } error:^(NSError * _Nonnull error) {
+        NSLog(@"网络请求失败");
+    }];
 }
 
 - (void)pressNearlyButton {
-    BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc]init];
-    annotation.coordinate = CLLocationCoordinate2DMake(39.909605, 116.410000);
-    //设置标注的标题
-    annotation.title = @"垃圾桶";
-    //副标题
-    annotation.subtitle = @"1";
-    [_mapView addAnnotation:annotation];
-    
-    BMKPointAnnotation* annotation1 = [[BMKPointAnnotation alloc]init];
-    annotation1.coordinate = CLLocationCoordinate2DMake(39.919605, 116.410000);
-    //设置标注的标题
-    annotation1.title = @"垃圾桶";
-    //副标题
-    annotation1.subtitle = @"2";
-    [_mapView addAnnotation:annotation1];
-    _flag = 1;
-    
+    [[Manage sharedManager]netWorkOfNearbyBin:_location and:^(NearbyBinModel * _Nonnull mainViewNowModel) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self->_tempLongitude = [[NSMutableArray alloc]init];
+            self->_tempLatitude = [[NSMutableArray alloc]init];
+            self->_trashImageScource = [[NSMutableArray alloc]init];
+            _total = mainViewNowModel.data.count;
+            for (int i = 0; i < mainViewNowModel.data.count; i++) {
+                BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc]init];
+                annotation.coordinate = CLLocationCoordinate2DMake([[mainViewNowModel.data[i]latitude] floatValue], [[mainViewNowModel.data[i]longitude] floatValue]);
+                [self->_trashImageScource addObject:[mainViewNowModel.data[i]picture]];
+                [self->_tempLongitude addObject:[mainViewNowModel.data[i]longitude]];
+                [self->_tempLatitude addObject:[mainViewNowModel.data[i]latitude]];
+                //设置标注的标题
+                //副标题
+                annotation.subtitle = [NSString stringWithFormat:@"%d",i + 1];
+                [self->_mapView addAnnotation:annotation];
+            }
+            
+            
+//            BMKPointAnnotation* annotation1 = [[BMKPointAnnotation alloc]init];
+//            annotation1.coordinate = CLLocationCoordinate2DMake([[mainViewNowModel.data[1]latitude] floatValue], [[mainViewNowModel.data[1]longitude] floatValue]);
+//            [self->_trashImageScource addObject:[mainViewNowModel.data[1]picture]];
+//            [self->_tempLongitude addObject:[mainViewNowModel.data[1]longitude]];
+//            [self->_tempLatitude addObject:[mainViewNowModel.data[1]latitude]];
+////            NSLog(@"%@",self->_tempLongitude);
+//            //设置标注的标题
+//            //副标题
+//            annotation1.subtitle = @"2";
+//            [self->_mapView addAnnotation:annotation1];
+            self->_flag = 1;
+        });
+    } error:^(NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
 }
 
 - (void)pressDelegtWayButton {
@@ -537,11 +563,13 @@
         if (location) {//得到定位信息，添加annotation
             if (location.location) {
                 NSLog(@"LOC = %f , %f",location.location.coordinate.longitude,location.location.coordinate.latitude);
-                self->_locationOne = location.location.coordinate.latitude;
-                self->_locationTwo = location.location.coordinate.longitude;
+                self->_locationOne = location.location.coordinate.latitude;//one latitude
+                self->_locationTwo = location.location.coordinate.longitude;// two longitude
             }
             if (location.rgcData) {
                 NSLog(@"rgc = %@",[location.rgcData description]);
+                self->_location = [NSString stringWithFormat:@"%@%@",[location.rgcData city],[location.rgcData street]];
+                NSLog(@"%@",self->_location);
             }
     
             if (!location) {

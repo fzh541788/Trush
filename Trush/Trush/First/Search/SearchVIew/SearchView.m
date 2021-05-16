@@ -48,7 +48,7 @@
     [_tableView registerClass:[SearchSonTableViewCell class] forCellReuseIdentifier:@"searchSonIdentifier"];
     [self addSubview:_tableView];
     
-    _hotSearchArray = [[NSMutableArray alloc]initWithObjects:@"牙膏", @"肥皂", @"水瓶", @"瓜子", @"西瓜", @"香水", @"卫生纸", @"电池", nil];
+    _hotSearchArray = [[NSMutableArray alloc]initWithObjects:@"纸", @"肥皂", @"止痛药", @"公交卡", @"西瓜", @"香水", @"卫生纸", @"电池", nil];
     
     return self;
 }

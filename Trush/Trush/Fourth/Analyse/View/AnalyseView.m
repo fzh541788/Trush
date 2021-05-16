@@ -40,6 +40,8 @@
     float total = 0;
     for (NSString *str in self.pieDataArray) {
         total = total + [str floatValue];
+        NSLog(@"%f",total);
+        NSLog(@"%@",str);
     }
     
     NSArray *arr = @[@"#308ff7",@"#fbca58",@"#f5447d",@"#a020f0",@"#00ffff",@"#00ff00"];

@@ -28,7 +28,6 @@
     _loginView.backgroundColor = [UIColor whiteColor];
     [_loginView.enterButton addTarget:self action:@selector(pressLogin) forControlEvents:UIControlEventTouchUpInside];
     [_loginView.registerButton addTarget:self action:@selector(pressRegister) forControlEvents:UIControlEventTouchUpInside];
-    [_loginView.messageButton addTarget:self action:@selector(pressMessageButton) forControlEvents:UIControlEventTouchUpInside];
     
 }
 
@@ -37,8 +36,14 @@
     MapViewController *mapViewController = [[MapViewController alloc]init];
     GuideViewController *guideViewController = [[GuideViewController alloc]init];
     MyViewController *myViewController = [[MyViewController alloc]init];
+    recognitionViewController.phone = self->_loginView.enterTextFiled.text;
     
     myViewController.numberTestString = self->_loginView.enterTextFiled.text;
+    myViewController.msg = _msg;
+    myViewController.name = _name;
+    myViewController.sex = _sex;
+    myViewController.stage = _stage;
+    myViewController.img = _img;
     
     recognitionViewController.title = @"识别";
     mapViewController.title = @"回收";
@@ -60,7 +65,16 @@
     UITabBarController *tabBarController = [[UITabBarController alloc]init];
     [[UITabBarItem appearance] setTitlePositionAdjustment:UIOffsetMake(0, 10)];
     tabBarController.viewControllers = array;
-    self.view.window.rootViewController = tabBarController;
+//    [self.view.window makeKeyAndVisible];
+//    self.view.window.rootViewController = tabBarController;
+    tabBarController.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self presentViewController:tabBarController animated:YES completion:nil];
+    [self->_myActivityIndicatorView stopAnimating];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self viewDidLoad];
 }
 
 - (void)pressLogin {
@@ -69,8 +83,12 @@
     [_myActivityIndicatorView startAnimating];
     [[Manage sharedManager]loginNetWork:_loginView.enterTextFiled.text andPassword:_loginView.registerTextFiled.text and:^(LoginModel * _Nonnull mainViewNowModel) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            //            NSLog(@"%d",mainViewNowModel.status);
             if (mainViewNowModel.status == 0 || ([self->_loginView.enterTextFiled.text  isEqual: @"123"] && [self->_loginView.registerTextFiled.text  isEqual: @"123"])) {
+                self->_msg = mainViewNowModel.data.msg;
+                self->_sex = mainViewNowModel.data.sex;
+                self->_stage = mainViewNowModel.data.stage;
+                self->_name = mainViewNowModel.data.name;
+                self->_img = mainViewNowModel.data.img;
                 [self addAllViewController];
             } else {
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"用户名或密码错误" preferredStyle:UIAlertControllerStyleAlert];
@@ -98,9 +116,6 @@
     [self presentViewController:registerViewController animated:YES completion:nil];
 }
 
-- (void)pressMessageButton {
-    //客户端将手机号发给后台，后台返回是否发送成功
-}
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];

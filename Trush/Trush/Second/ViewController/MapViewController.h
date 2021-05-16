@@ -21,6 +21,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) bool didSecondChange;
 
+@property (nonatomic, copy) NSString *location;
+
+@property (nonatomic, strong) UIImageView *trashImage;
+@property (nonatomic, copy) NSMutableArray *trashImageScource;
+
+@property (nonatomic, copy) NSMutableArray *tempLatitude;
+@property (nonatomic, copy) NSMutableArray *tempLongitude;
+
+@property (nonatomic, assign) NSInteger total;
+
 @end
 
 NS_ASSUME_NONNULL_END
